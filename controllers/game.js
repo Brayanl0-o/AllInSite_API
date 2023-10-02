@@ -62,6 +62,15 @@ const controllerGame = {
         catch (error) {
             return res.status(500).json({ msg: error })
         }
+    },
+    deleteGame: async (req, res) => {
+        try {
+            const { id } = req.params
+            await Game.findByIdAndDelete(id)
+            res.json({ msg: 'Game Deleted' })
+        } catch (error) {
+            return res.status(500).json({ msg: error })
+        }
     }
 
 }
