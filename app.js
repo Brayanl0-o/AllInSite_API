@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
+const game = require('./routers/game')
 
 //Config midldlewares
 app.use(cors({
@@ -11,11 +12,7 @@ app.use(cors({
 
 app.use(express.json());
 
-// app.get('/', (req, res) => {
-//     res.send('Connected to API games');
-// });
-
 //router global
-
+app.use('/games', game)
 
 module.exports = app;
