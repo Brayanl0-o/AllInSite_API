@@ -34,6 +34,17 @@ const controllerGame = {
             return res.status(500).json({ msg: error })
         }
     },
+    getGameById: async (req, res) => {
+        try {
+            const { id } = req.params
+            const game = await Game.findById(id)
+            res.json(game)
+        }
+        catch (error) {
+            return res.status(500).json({ msg: error })
+        }
+    },
+
 
 }
 module.exports = controllerGame
