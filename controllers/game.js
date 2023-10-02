@@ -24,6 +24,16 @@ const controllerGame = {
         catch (error) {
             return res.status(500).json({ msg: error })
         }
-    }
+    },
+    getGame: async (req, res) => {
+        try {
+            const games = await Game.find({})
+            return res.status(200).json(games);
+            // res.json(games.reverse());
+        } catch (error) {
+            return res.status(500).json({ msg: error })
+        }
+    },
+
 }
 module.exports = controllerGame
