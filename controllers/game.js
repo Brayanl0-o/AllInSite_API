@@ -44,7 +44,25 @@ const controllerGame = {
             return res.status(500).json({ msg: error })
         }
     },
+    updateGame: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const updatedGameData = req.body;
 
+            const updatedGame = await Game.findByIdAndUpdate(id, updatedGameData, {
+                new: true,
+            });
+            if (!updatedGame) {
+                return res.status(404).json({ message: 'Juego no encontrado' });
+            }
+
+            // Enviar el usuario actualizado como respuesta
+            res.status(200).json(updatedGame);
+        }
+        catch (error) {
+            return res.status(500).json({ msg: error })
+        }
+    }
 
 }
 module.exports = controllerGame

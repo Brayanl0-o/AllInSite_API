@@ -6,7 +6,7 @@ const router = express.Router()
 
 
 router.post('/create', controllerGame.create)
-// router.put('/update/:id', controllerGame.update)
+router.patch('/update/:id', controllerGame.updateGame)
 router.get('/', controllerGame.getGame)
 router.get('/:id', controllerGame.getGameById)
 // router.delete('/delete/:id', controllerGame.delete)
