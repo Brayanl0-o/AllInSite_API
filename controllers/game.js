@@ -71,7 +71,28 @@ const controllerGame = {
         } catch (error) {
             return res.status(500).json({ msg: error })
         }
-    }
-
+    },
+    filterGames: async (req, res) => {
+        try {
+          const { genre, platform } = req.query;
+          
+          let query = {};
+      
+          if (genre) {
+            query.genre = { $regex: new RegExp(genre, 'i') };;
+          }
+      
+          if (platform) {
+            // Utiliza una expresión regular para buscar la plataforma en la cadena.
+            query.platform = { $regex: new RegExp(platform, 'i') };
+          }
+      
+          const filteredGames = await Game.find(query);
+      
+          res.status(200).json(filteredGames);
+        } catch (error) {
+          res.status(500).json({ error: 'Internal Server Error' });
+        }
+      }
 }
 module.exports = controllerGame
