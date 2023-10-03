@@ -15,7 +15,7 @@ const gameSchema = new Schema({
     platform: {
         type: String,
         required: false,
-        maxLength: 30
+        maxLength: 60
     },
     releaseDate: {
         type: Date,
