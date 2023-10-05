@@ -5,7 +5,7 @@ const Schema = mongoose.Schema
 const gameSchema = new Schema({
     gameName: {
         type: String,
-        required: true,
+        required: [true,"Ingresa el nombre del juego"],   
         maxLength: 50
     },
     gameImg: {
