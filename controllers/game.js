@@ -74,7 +74,7 @@ const controllerGame = {
     },
     filterGames: async (req, res) => {
         try {
-          const { genre, platform, developer} = req.query;
+          const { genre, platform, developer, order} = req.query;
           
           let query = {};
       
@@ -86,10 +86,21 @@ const controllerGame = {
             // Utiliza una expresión regular para buscar la plataforma en la cadena.
             query.platform = { $regex: new RegExp(platform, 'i') };
           }
+
         if(developer){
-            query.developer = developer;
-         }
-          const filteredGames = await Game.find(query);
+                query.developer = developer;
+        }
+
+        const sortOptions = {};
+        
+        // Ordenar por calificación ascendente o descendente
+        if (order === 'asc') {
+        sortOptions.averageRating = 1; // Orden ascendente
+        } else if (order === 'desc') {
+        sortOptions.averageRating = -1; // Orden descendente
+        }
+
+          const filteredGames = await Game.find(query).sort(sortOptions);
       
           res.status(200).json(filteredGames);
         } catch (error) {
