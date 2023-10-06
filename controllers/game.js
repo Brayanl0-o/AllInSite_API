@@ -74,7 +74,7 @@ const controllerGame = {
     },
     filterGames: async (req, res) => {
         try {
-          const { genre, platform, developer, order} = req.query;
+          const { genre, platform, developer, order, startDate, endDate} = req.query;
           
           let query = {};
       
@@ -89,6 +89,14 @@ const controllerGame = {
 
         if(developer){
                 query.developer = developer;
+        }
+
+        if (startDate && endDate) {
+            // Agrega la lógica para filtrar por fecha de inicio y finalización aquí
+            query.releaseDate = {
+              $gte: new Date(startDate),
+              $lte: new Date(endDate),
+            };
         }
 
         const sortOptions = {};
