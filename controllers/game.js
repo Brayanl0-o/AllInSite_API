@@ -74,7 +74,7 @@ const controllerGame = {
     },
     filterGames: async (req, res) => {
         try {
-          const { genre, platform } = req.query;
+          const { genre, platform, developer} = req.query;
           
           let query = {};
       
@@ -86,7 +86,9 @@ const controllerGame = {
             // Utiliza una expresión regular para buscar la plataforma en la cadena.
             query.platform = { $regex: new RegExp(platform, 'i') };
           }
-      
+        if(developer){
+            query.developer = developer;
+         }
           const filteredGames = await Game.find(query);
       
           res.status(200).json(filteredGames);
