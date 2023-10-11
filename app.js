@@ -4,6 +4,7 @@ const app = express();
 
 const game = require('./routers/game')
 const user = require('./routers/user')
+const auth = require('./routers/auth')
 //Config midldlewares
 app.use(cors({
     origin: "*",
@@ -16,5 +17,5 @@ app.use(express.json());
 //router global
 app.use('/users', user)
 app.use('/games', game)
-
+app.use('/auth', auth)
 module.exports = app;
