@@ -56,6 +56,6 @@ const Schema = mongoose.Schema({
       type:mongoose.Schema.Types.ObjectId,
       ref:'Role'
     }]
-})
+},{versionKey: false,timestamps: true})
 
 module.exports = mongoose.model('User', userSchema)

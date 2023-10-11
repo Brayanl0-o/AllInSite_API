@@ -36,6 +36,6 @@ const gameSchema = new Schema({
         required: false,
 
     }
-});
+},{versionKey: false});
 
 module.exports = mongoose.model('Game', gameSchema)
