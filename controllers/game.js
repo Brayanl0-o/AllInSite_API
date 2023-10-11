@@ -1,4 +1,3 @@
-// const { default: mongoose } = require('mongoose')
 const Game = require('../models/game')
 
 const controllerGame = {
