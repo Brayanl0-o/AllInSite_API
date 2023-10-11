@@ -12,11 +12,9 @@ router.use((req, res, next) => {
 
 router.post('/signup',controllerAuth.signup) // ruta registro con validaciones 
 
-// router.post('/signin',controllerAuth.signin) // ruta inicio de sesión
+router.post('/signin',controllerAuth.signin) // ruta inicio de sesión
 
-// router.get('/',authJwt.verifyToken,userControllers.getsingup) //buscar todos los usuarios
-
-
+router.get('/',controllerAuth.getsingup) //buscar todos los usuarios
 
 
 module.exports = router
