@@ -48,6 +48,35 @@ const controllerUser ={
         }catch(error){
             return res.status(500).json({msg:error})
         }
+    },
+    updateUser:async(req, res)=>{
+        try{
+            const { id } = req.params;
+            const updatedUserData = req.body;
+
+            // Encuentra al usuario por su ID y actualiza sus datos
+            const updatedUser = await User.findByIdAndUpdate(id, updatedUserData, {
+                new: true,
+            });
+
+            if (!updatedUser) {
+                return res.status(404).json({ message: 'Usuario no encontrado' });
+            }
+
+            // Enviar el usuario actualizado como respuesta
+            res.status(200).json(updatedUser);
+        }catch(error){
+            res.status(500).json({ message: 'Error en la actualización del usuario' });
+        }
+    },
+    deleteUser:async(req, res)=>{
+        try{
+            const {id}= req.params
+            await User.findByIdAndDelete(id)
+            res.json({msg:'Delete'})
+        }catch(error){
+            return res.status(500).json({msg:error})
+        }
     }
 }
 
