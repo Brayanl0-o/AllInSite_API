@@ -8,12 +8,12 @@ const Schema = mongoose.Schema({
     firstName:{
         type: String,
         required: true,
-        maxLenth: 25
+        maxLength: 25
     },
     lastName:{
         type: String,
         required: true,
-        maxLenth: 25
+        maxLength: 25
     },
     userImg: {
         type: String,
@@ -24,7 +24,7 @@ const Schema = mongoose.Schema({
         unique: true,
         validate: {
             validator: function (email) {
-                return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(email);
+                return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
             },
             message: props => `${props.value} is not a valid email`
         },
@@ -35,9 +35,9 @@ const Schema = mongoose.Schema({
         required: true
     },
     phoneNumber:{
-        type: Number,
-        minLenth:3,
-        maxLenth: 10
+        type:String,
+        minLength:3,
+        // maxLength: 10
     },
     country:{
         type: String,
@@ -45,16 +45,16 @@ const Schema = mongoose.Schema({
     },
     years:{
         type: Number,
-        minLenth: 5,
-        maxLenth: 100
+        minLength: 5,
+        maxLength: 100
     },
     descriptionUser:{
         type: String,
         default: "sin descripcion..."
     },
-    admin:[{
-        ref: "Admin", //Referecia a modelo de Admin
-        type: mongoose.Schema.Types.ObjectId
+    roles:[{
+      type:mongoose.Schema.Types.ObjectId,
+      ref:'Role'
     }]
 })
 
