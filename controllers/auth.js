@@ -22,7 +22,9 @@ const controllerAuth={
             years, 
             descriptionUser
         })
-
+        // Asignar un rol al usuario (por ejemplo, "usuario" o "administrador")
+        userRegis.roles = ['usuario'];
+        
         const savedUser= await userRegis.save()
 
         const token = jwt.sign({id: savedUser._id}, config.SECRET,{
@@ -32,27 +34,31 @@ const controllerAuth={
     }catch(error){
         return res.status(500).json({error:"Error interno del servidor", details: error.message})
     }
-    }, 
-    signin: async (req,res) =>{
-        try{
-        const userFound =await User.findOne({email: req.body.email}).populate("admin") 
-
-        if (!userFound) return res.status(400).json({message: 'user not found '}) // Validaciones para autentificar el usuario
-
-        const mathPassword = await User.comparPassword(req.body.password, userFound.password) // Valida si la contraseña ingresada es la correcta
-
-        if (!mathPassword) return res.status(401).json({token: null, message: 'invalid password '})
-        
-        //una vez autentificado loguea y genera un nuevo token
-        const token = jwt.sign({id: userFound._id, role: userFound.admin}, config.SECRET,{
-            expiresIn: 86400
-        })
-
-        res.json({token, userFound: {_id: userFound._id , role: userFound.admin}})
-    }catch(error){
-        return res.status(500).json({ msg:"Error interno del servidor", details: error.message })
+}, 
+login: async (req, res) => {
+    try {
+      const userFound = await User.findOne({ email: req.body.email });
+  
+      if (!userFound) {
+        return res.status(400).json({ message: 'Usuario no encontrado' });
+      }
+  
+      const isPasswordValid = await User.comparePassword(req.body.password, userFound.password);
+  
+      if (!isPasswordValid) {
+        return res.status(401).json({ token: null, message: 'Contraseña inválida' });
+      }
+  
+      // Una vez autenticado, genera un nuevo token
+      const token = jwt.sign({ id: userFound._id, role: userFound.role }, config.SECRET, {
+        expiresIn: 86400
+      });
+  
+      res.json({ token, userFound: { _id: userFound._id, role: userFound.role } });
+    } catch (error) {
+      return res.status(500).json({ msg: 'Error interno del servidor', details: error.message });
     }
-    },
+  },
     getsingup: async (req, res) => {
         try {
             const users = await User.find({})
@@ -60,6 +66,6 @@ const controllerAuth={
         } catch (error) {
             return res.status(500).json({ msg:"Error interno del servidor", details: error.message })
         }
-    }, 
+}, 
 }
 module.exports = controllerAuth
