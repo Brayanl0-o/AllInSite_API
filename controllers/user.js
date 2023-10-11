@@ -7,7 +7,6 @@ const controllerUser ={
             
             const userName = '${firstName}${lastName}'
 
-
             const user = new User({
                 firstName, 
                 lastNameuserImg, 
@@ -26,4 +25,21 @@ const controllerUser ={
             return res.status(500).json({msg:error})
         }
     },
+    getUser:async(req, res)=>{
+        try{
+            const users = await User.find({})
+            res.json(users.reverse())
+        }catch(error){
+            return res.status(500).json({msg:error})
+        }
+    },
+    getUserById: async(req, res) =>{
+        try{
+            const {id}= req.params
+            const user = await User.findById(id)
+            res.json(user)
+        }catch(error){
+            return res.status(500).json({msg:error})
+        }
+    }
 }
