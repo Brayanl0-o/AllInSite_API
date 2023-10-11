@@ -1,24 +1,24 @@
-const jwt = require('jsonwebtoken')
-const User = require('../models/user')
+// const jwt = require('jsonwebtoken')
+// const User = require('../models/user')
+// const config =require('../config')
+// const authJwt ={
+//     verifyToken:async(req, res, next)=>{
+//         let token = req.headers['x-access-token']
 
-const authJwt ={
-    verifyToken:async(req, res, next)=>{
-        let token = req.headers['x-access-token']
+//         if(!token) return res.status(403).json({message:'no token'})
 
-        if(!token) return res.status(403).json({message:'no token'})
+//         try{
+//             const decoded = jwt.verify(token,config.SECRET)
+//             req.userId = decoded.userId
 
-        try{
-            const decoded = jwt.verify(token)
-            req.userId = decoded.userId
+//             const user = await User.findById(req.userId,{password:0})
+//             if(!user) return res.status(404).json({message:'no user found'})
 
-            const user = await User.findById(req.userId,{password:0})
-            if(!user) return res.status(404).json({message:'no user found'})
+//             next()
+//         }catch(error){
+//             res.status(401).json({message:'Unauthorized'})
+//         }
+//     }
+// }
 
-            next()
-        }catch(error){
-            res.status(401).json({message:'Unauthorized'})
-        }
-    }
-}
-
-module.exports = authJwt
+// module.exports = authJwt
