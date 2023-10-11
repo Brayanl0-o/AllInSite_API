@@ -58,4 +58,25 @@ const Schema = mongoose.Schema({
     }]
 },{versionKey: false,timestamps: true})
 
+    // Encriptado de contraseña
+    userSchema.statics.encryptPassword = async(password)=>{
+        const salt = await bycrypt.genSalt(10)
+        return await bycrypt.hash(password, salt)
+    }
+
+    //Comparar antes de comenzar
+    userSchema.statics.comparePassword = async (password, receivedPassword)=>{
+        return await bcrypt.compare(password, receivedPassword)
+    }
+
+    //hasheo de password
+    userSchema.pre("save", async function (next){
+        const user = this;
+        if(!user.isModified("password")){
+            return next();
+        }
+        const hash = await bcrypt.hash(user.password, 10);
+        user.password =hash;
+        next();
+    })
 module.exports = mongoose.model('User', userSchema)
