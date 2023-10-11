@@ -54,10 +54,8 @@ const userSchema = new Schema({
         type: String,
         default: "sin descripcion..."
     },
-    roles:[{
-      type:mongoose.Schema.Types.ObjectId,
-      ref:'Role'
-    }]
+    roles:[String]
+
 },{versionKey: false,timestamps: true})
 
     // Encriptado de contraseña
