@@ -10,9 +10,10 @@ const authJwt ={
 
         try{
             const decoded = jwt.verify(token,config.SECRET)
-            req.userId = decoded.userId
-
+            req.userId = decoded.id
+            // console.log(decoded)
             const user = await User.findById(req.userId,{password:0})
+            // console.log(user)
             if(!user) return res.status(404).json({message:'no user found'})
             req.userRoles = user.roles;
             next()
