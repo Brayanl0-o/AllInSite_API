@@ -1,6 +1,7 @@
 const express = require('express')
 const controllerAuth = require('../controllers/auth')
 const router = express.Router()
+const authJwt = require('../middlewares/authJwt')
 
 router.use((req, res, next) => {
     res.header(
@@ -18,4 +19,5 @@ router.get('/',controllerAuth.getsingup) //buscar todos los usuarios
 
 router.post("/send-password-link", controllerAuth.sendPasswordLink)
 
+router.post("/change-password", authJwt.verifyToken, controllerAuth.changePassword,)
 module.exports = router
