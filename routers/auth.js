@@ -10,9 +10,9 @@ router.use((req, res, next) => {
     next();
     }); // validaciones para token en la aplicacion 
 
-router.post('/signup',controllerAuth.signup) // ruta registro con validaciones 
+router.post('/signup',controllerAuth.signup) 
 
-router.post('/login',controllerAuth.login) // ruta inicio de sesión
+router.post('/login',controllerAuth.login) 
 
 router.get('/',controllerAuth.getsingup) //buscar todos los usuarios
 

@@ -38,8 +38,8 @@ const userSchema = new Schema({
     },
     phoneNumber:{
         type:String,
-        minLength:3,
-        // maxLength: 10
+        minLength:5,
+        maxLength: 15
     },
     country:{
         type: String,
