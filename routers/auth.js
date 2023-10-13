@@ -16,5 +16,6 @@ router.post('/login',controllerAuth.login)
 
 router.get('/',controllerAuth.getsingup) //buscar todos los usuarios
 
+router.post("/send-password-link", controllerAuth.sendPasswordLink)
 
 module.exports = router
