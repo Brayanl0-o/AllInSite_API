@@ -22,7 +22,7 @@ const controllerAuth={
             years, 
             descriptionUser
         })
-        // Asignar un rol al usuario (por ejemplo, "usuario" o "administrador")
+        // Asigna un rol al usuario
         userRegis.roles = ['usuario'];
         
         const savedUser= await userRegis.save()

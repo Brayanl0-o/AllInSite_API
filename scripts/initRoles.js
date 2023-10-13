@@ -1,6 +1,5 @@
-// scripts/initRoles.js
 const mongoose = require('mongoose');
-const Role = require('../models/roles'); // Asegúrate de tener la ruta correcta al modelo de Role
+const Role = require('../models/roles'); 
 const dbConnection = require('../database');
 
 

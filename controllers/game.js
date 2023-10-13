@@ -27,7 +27,7 @@ const controllerGame = {
     getGame: async (req, res) => {
         try {
 
-            const page = parseInt(req.query.page) || 1; // Obtiene el número de página de la consulta o usa 1 por defecto
+            const page = parseInt(req.query.page) || 1; // Obtiene el número de páagina de la consulta o usa 1 por defecto
             const itemsPerPage = parseInt(req.query.itemsPerPage) || 9; // Obtiene la cantidad por página o usa 10 por defecto
 
             const skip = (page - 1) * itemsPerPage
@@ -109,7 +109,6 @@ const controllerGame = {
         }
 
         if (startDate && endDate) {
-            // Agrega la lógica para filtrar por fecha de inicio y finalización aquí
             query.releaseDate = {
               $gte: new Date(startDate),
               $lte: new Date(endDate),
@@ -120,9 +119,9 @@ const controllerGame = {
         
         // Ordenar por calificación ascendente o descendente
         if (order === 'asc') {
-        sortOptions.averageRating = 1; // Orden ascendente
+        sortOptions.averageRating = 1; 
         } else if (order === 'desc') {
-        sortOptions.averageRating = -1; // Orden descendente
+        sortOptions.averageRating = -1; 
         }
 
           const filteredGames = await Game.find(query).sort(sortOptions);

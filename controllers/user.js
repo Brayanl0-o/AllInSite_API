@@ -26,10 +26,10 @@ const controllerUser ={
 
             const savedUser = await user.save()
 
-            return res.status(200).json({message:"Usuario creado",user: savedUser})
+            return res.status(200).json({message:"Created user",user: savedUser})
         
         }catch(error){
-            return res.status(500).json({msg:"Ocurrió un error en el servidor", details: error.message})
+            return res.status(500).json({msg:"A server error occurred", details: error.message})
         }
     },
     getUser:async(req, res)=>{
@@ -37,7 +37,7 @@ const controllerUser ={
             const users = await User.find({})
             res.json(users.reverse())
         }catch(error){
-            return res.status(500).json({msg:"Ocurrió un error en el servidor", details: error.message})
+            return res.status(500).json({msg:"A server error occurred", details: error.message})
         }
     },
     getUserById: async(req, res) =>{
@@ -60,13 +60,13 @@ const controllerUser ={
             });
 
             if (!updatedUser) {
-                return res.status(404).json({ message: 'Usuario no encontrado' });
+                return res.status(404).json({ message: 'User no found ' });
             }
 
             // Enviar el usuario actualizado como respuesta
             res.status(200).json(updatedUser);
         }catch(error){
-            res.status(500).json({ message: 'Error en la actualización del usuario' });
+            res.status(500).json({ message: 'Error in User updated' });
         }
     },
     deleteUser:async(req, res)=>{
