@@ -103,7 +103,7 @@ const controllerAuth={
           from: config.ADMIN_EMAIL,
           to: email,
           subject: "Enviando correo electrónico para restablecer la contraseña",
-          text: `Este Enlace es válido por 1 horas ${config.URL}change-password/${token}`,
+          text: `Este Enlace es válido por 1 horas ${config.URL}/reset-password/${token}`,
           };
           transporter.sendMail(mailOptions, (error, info) => {
           if (error) {
