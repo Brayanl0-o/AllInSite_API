@@ -14,7 +14,7 @@ mongoose.connect(process.env.MONGO_DB_URI + "/gameSite", {
         console.error(err));
 
 app.get('/', (req, res) => {
-    res.send('Connected to API games')
+    res.send('Connected to API ALLIN')
 })
 
 module.exports = mongoose.connect;
