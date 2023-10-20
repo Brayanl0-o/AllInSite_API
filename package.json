@@ -1,7 +1,7 @@
 {
   "name": "gamesiteapi",
   "version": "1.0.0",
-  "description": "game site for share videogames",
+  "description": "resurces entertaiment sharing site",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
