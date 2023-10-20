@@ -51,7 +51,7 @@ const controllerUser ={
     },
     updateUser:async(req, res)=>{
         try{
-            const { id } = req.params;
+            const {id } = req.params;
             const updatedUserData = req.body;
 
             // Encuentra al usuario por su ID y actualiza sus datos
@@ -66,7 +66,7 @@ const controllerUser ={
             // Enviar el usuario actualizado como respuesta
             res.status(200).json(updatedUser);
         }catch(error){
-            res.status(500).json({ message: 'Error in User updated' });
+            res.status(500).json({ message: 'Error in User updated',msg:error });
         }
     },
     deleteUser:async(req, res)=>{
