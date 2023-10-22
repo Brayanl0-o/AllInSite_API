@@ -26,31 +26,40 @@ const controllerGame = {
     },
     getGame: async (req, res) => {
         try {
-
-            const page = parseInt(req.query.page) || 1; // Obtiene el número de páagina de la consulta o usa 1 por defecto
-            const itemsPerPage = parseInt(req.query.itemsPerPage) || 9; // Obtiene la cantidad por página o usa 10 por defecto
-
-            const skip = (page - 1) * itemsPerPage
-
             const games = await Game.find({})
-                .skip(skip)
-                .limit(itemsPerPage);
-
-            const totalGames = await Game.countDocuments();   
-           // Revertir el arreglo de juegos
-            const reversedGames = games.reverse();
-
-            res.json({
-                games: reversedGames,
-                currentPage: page,
-                totalPages: Math.ceil(totalGames / itemsPerPage)
-              });
-            // res.json(games.reverse());
             // return res.status(200).json(games);
+            return res.json(games.reverse());
         } catch (error) {
-            return res.status(500).json({ error: 'Error interno del servidor' })
+            return res.status(500).json({ msg: error })
         }
     },
+    // getGame: async (req, res) => {
+    //     try {
+
+    //         const page = parseInt(req.query.page) || 1; // Obtiene el número de páagina de la consulta o usa 1 por defecto
+    //         const itemsPerPage = parseInt(req.query.itemsPerPage) || 9; // Obtiene la cantidad por página o usa 10 por defecto
+
+    //         const skip = (page - 1) * itemsPerPage
+
+    //         const games = await Game.find({})
+    //             .skip(skip)
+    //             .limit(itemsPerPage);
+
+    //         const totalGames = await Game.countDocuments();   
+    //        // Revertir el arreglo de juegos
+    //         const reversedGames = games.reverse();
+
+    //         res.json({
+    //             games: reversedGames,
+    //             currentPage: page,
+    //             totalPages: Math.ceil(totalGames / itemsPerPage)
+    //           });
+    //         // res.json(games.reverse());
+    //         // return res.status(200).json(games);
+    //     } catch (error) {
+    //         return res.status(500).json({ error: 'Error interno del servidor' })
+    //     }
+    // },
     getGameById: async (req, res) => {
         try {
             const { id } = req.params
