@@ -5,6 +5,7 @@ const app = express();
 const game = require('./routers/game')
 const user = require('./routers/user')
 const auth = require('./routers/auth')
+const upload = require('./routers/upload')
 //Config midldlewares
 app.use(cors({
     origin: "*",
@@ -15,6 +16,7 @@ app.use(express.json());
 
 
 //router global
+app.use('/upload', upload)
 app.use('/users', user)
 app.use('/games', game)
 app.use('/auth', auth)
