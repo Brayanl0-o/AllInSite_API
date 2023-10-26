@@ -3,7 +3,7 @@ const Game = require('../models/game')
 const controllerGame = {
     create: async (req, res) => {
         try {
-            const { gameName, gameImg, platform, releaseDate, developer, genre, averageRating } = req.body
+            const { gameName, gameImg, platform, releaseDate, developer, genre, averageRating, descriptionGame } = req.body
 
             const game = new Game({
                 gameName,
@@ -12,7 +12,8 @@ const controllerGame = {
                 releaseDate,
                 developer,
                 genre,
-                averageRating
+                averageRating,
+                descriptionGame,
             })
 
             // Guardar el juego en la base de datos
