@@ -1,9 +1,9 @@
 const express = require('express')
 const controllerGame = require('../../controllers/videogames/game')
 const router = express.Router()
-
+const controllerUploadGame = require('../../controllers/videogames/uploadGame');
 router.get('/filter', controllerGame.filterGames);
-router.post('/create', controllerGame.create)
+router.post('/create',controllerUploadGame.upload, controllerGame.create)
 router.patch('/update/:id', controllerGame.updateGame)
 router.get('/', controllerGame.getGame)
 router.get('/:id', controllerGame.getGameById)
