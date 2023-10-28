@@ -3,8 +3,8 @@ const Game = require('../../models/game')
 const controllerGame = {
     create: async (req, res) => {
         try {
-            const { gameName, gameImg, platform, releaseDate, developer, genre, averageRating, descriptionGame } = req.body
-
+            const { gameName, platform, releaseDate, developer, genre, averageRating, descriptionGame } = req.body
+            const gameImg = req.file.filename;
             const game = new Game({
                 gameName,
                 gameImg,
@@ -15,7 +15,7 @@ const controllerGame = {
                 averageRating,
                 descriptionGame,
             })
-
+          
             // Guardar el juego en la base de datos
             const savedGame = await game.save();
 
