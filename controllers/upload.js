@@ -17,12 +17,12 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage})
 
-exports.upload = upload.single('myFile')
+exports.upload = upload.single('file')
 
 exports.uploadFile = (req, res) => {
-    helperImg(req.file.path,`micro-resize-${req.file.filename}`, 20);
-    helperImg(req.file.path,`small-resize-${req.file.filename}`, 100); 
-    helperImg(req.file.path,`medium-resize-${req.file.filename}`, 500);
+    // helperImg(req.file.path,`micro-resize-${req.file.filename}`, 20);
+    // helperImg(req.file.path,`small-resize-${req.file.filename}`, 100); 
+    // helperImg(req.file.path,`medium-resize-${req.file.filename}`, 500);
     helperImg(req.file.path,`large-resize-${req.file.filename}`, 1000);
     res.send({data: 'Imagen cargada'})
 }
