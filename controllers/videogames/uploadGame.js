@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage})
 
-exports.upload = upload.single('file')
+exports.upload = upload.single('gameImg')
 
 exports.uploadFile = (req, res) => {
 
