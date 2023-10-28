@@ -1,5 +1,5 @@
 const express = require('express')
-const controllerGame = require('../controllers/game')
+const controllerGame = require('../../controllers/videogames/game')
 const router = express.Router()
 
 router.get('/filter', controllerGame.filterGames);

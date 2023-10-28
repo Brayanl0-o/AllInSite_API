@@ -1,4 +1,4 @@
-const Game = require('../models/game')
+const Game = require('../../models/game')
 
 const controllerGame = {
     create: async (req, res) => {
