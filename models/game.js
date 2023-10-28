@@ -38,7 +38,7 @@ const gameSchema = new Schema({
     },
     descriptionGame:{
         type: String,
-        maxLength: 550,
+        maxLength: 450,
         required: false,
     }
 },{versionKey: false});
