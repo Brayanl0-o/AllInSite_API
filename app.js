@@ -12,7 +12,7 @@ app.use(cors({
     origin: "*",
     methods: "GET,HEAD,POST,PATCH,PUT,DELETE"
 }));
-
+app.use('/uploads/videogames', express.static('uploads/videogames'));
 app.use(express.json());
 
 
