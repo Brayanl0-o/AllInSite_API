@@ -2,10 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-const game = require('./routers/game')
+const game = require('./routers/videogames/game')
 const user = require('./routers/user')
 const auth = require('./routers/auth')
 const upload = require('./routers/upload')
+const uploadImg = require('./routers/videogames/uploadGame')
 //Config midldlewares
 app.use(cors({
     origin: "*",
@@ -16,7 +17,8 @@ app.use(express.json());
 
 
 //router global
-app.use('/upload', upload)
+app.use('/upload', upload )
+app.use('/uploadImg', uploadImg )
 app.use('/users', user)
 app.use('/games', game)
 app.use('/auth', auth)
