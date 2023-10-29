@@ -1,5 +1,7 @@
 const multer = require('multer')
 const sharp = require('sharp')
+const fs = require('fs')
+const Game = require('../../models/game')
 const helperImg =(filePath,fileName, size = 400) => {
     return sharp(filePath)
         .resize(size)
@@ -7,12 +9,23 @@ const helperImg =(filePath,fileName, size = 400) => {
 }
 const storage = multer.diskStorage({
     destination: (req, file, cb) =>{
-        cb(null, './uploads/videogames/')
+        cb(null, './uploads/videogames')
     },
-    filename: (req, file, cb)=>{
-        // const ext = file.originalname.split('').pop() //Imagen.png ---> png
-        cb(null, `${Date.now()}-${file.originalname}`)
-    }
+    filename: async (req, file, cb)=>{
+        const gameId = req.body.gameId;
+        const uniqueFileName = `${gameId}_${file.originalname}`;
+    
+        // Verifica si la imagen ya existe en la base de datos
+        const existingGame = await Game.findOne({ _id: gameId, gameImg: uniqueFileName }).exec();
+        if (existingGame) {
+          // La imagen ya existe, no la guarda nuevamente.
+          console.log('La imagen ya existe en la base de datos.');
+          return cb(null, existingGame.gameImg);
+        } else {
+          // La imagen no existe, la guarda como una nueva.
+          cb(null, uniqueFileName);
+        }
+      }
 })
 
 const upload = multer({storage})
