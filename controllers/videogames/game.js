@@ -75,12 +75,18 @@ const controllerGame = {
         try {
             const { id } = req.params;
             const updatedGameData = req.body;
+            const updateGameImg = req.file;
+            
+            if (updateGameImg) {
+                updatedGameData.gameImg = updateGameImg.filename;
+            }
 
-            const updatedGame = await Game.findByIdAndUpdate(id, updatedGameData, {
+            const updatedGame = await Game.findByIdAndUpdate(id, updatedGameData,  {
                 new: true,
             });
+
             if (!updatedGame) {
-                return res.status(404).json({ message: 'Juego no encontrado' });
+                return res.status(404).json({ message: 'Game no found' });
             }
 
             // Enviar el usuario actualizado como respuesta
