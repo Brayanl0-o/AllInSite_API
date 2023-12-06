@@ -3,6 +3,7 @@ const Game = require('../../models/game')
 const controllerGame = {
     create: async (req, res) => {
         try {
+            // console.log('req game',req.body)
             const { gameName, platform, releaseDate, developer, genre, averageRating, descriptionGame } = req.body
             const gameImg = req.file.filename;
             // Verificar si la imagen ya existe en la base de datos
