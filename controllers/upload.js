@@ -1,5 +1,6 @@
 const multer = require('multer')
 const sharp = require('sharp')
+
 const helperImg =(filePath,fileName, size = 400) => {
     return sharp(filePath)
         .resize(size)
