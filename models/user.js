@@ -39,7 +39,7 @@ const userSchema = new Schema({
     phoneNumber:{
         type:String,
         minLength:5,
-        maxLength: 15
+        maxLength: 15,
     },
     country:{
         type: String,
