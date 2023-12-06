@@ -51,8 +51,14 @@ const controllerUser ={
     },
     updateUser:async(req, res)=>{
         try{
+            console.log('req file updatedUser: ', req.file)
             const {id } = req.params;
             const updatedUserData = req.body;
+            const updateUserImg = req.file;
+
+                if (updateUserImg){
+                    updatedUserData.userImg = updateUserImg.filename; 
+                }
 
             // Encuentra al usuario por su ID y actualiza sus datos
             const updatedUser = await User.findByIdAndUpdate(id, updatedUserData, {
