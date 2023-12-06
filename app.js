@@ -6,20 +6,26 @@ const game = require('./routers/videogames/game')
 const user = require('./routers/user')
 const auth = require('./routers/auth')
 const upload = require('./routers/upload')
-const uploadImg = require('./routers/videogames/uploadGame')
+const uploadImgGame = require('./routers/videogames/uploadGame')
+const uploadImgUser = require('./routers/uploadUser')
+
 //Config midldlewares
 app.use(cors({
     origin: "*",
     methods: "GET,HEAD,POST,PATCH,PUT,DELETE"
 }));
 app.use('/uploads/videogames', express.static('uploads/videogames'));
+app.use('/uploads/users', express.static('uploads/users'));
+
 app.use(express.json());
 
 
 //router global
 app.use('/upload', upload )
-app.use('/uploadImg', uploadImg )
+app.use('/uploadImgGame', uploadImgGame )
 app.use('/users', user)
 app.use('/games', game)
 app.use('/auth', auth)
+app.use('/uploadImgUser', uploadImgUser )
+
 module.exports = app;
