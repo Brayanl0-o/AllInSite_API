@@ -17,7 +17,15 @@ const controllerAuth={
     //Controlador para la creacion de Usuarios & Administradores
     signup: async (req,res) =>{
         try{
-        const {firstName, lastName,userImg, email, password,phoneNumber,country,years, descriptionUser} = req.body
+        console.log('req.body:', req.body);
+        console.log('req.file:', req.file);
+
+        const {firstName, lastName, email, password, phoneNumber, country, years, descriptionUser} = req.body
+        const userImg =  req.file.filename;
+        const existingImg = await User.findOne({userImg: userImg}).exec();
+        if(existingImg){
+          return res.status(400).json({ message: 'La imagen ya existe en la base de datos.' });
+        }
 
         const userName = `${firstName} ${lastName}`;
         const userRegis = new User({
