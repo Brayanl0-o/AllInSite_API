@@ -3,11 +3,11 @@ const cors = require('cors');
 const app = express();
 
 const game = require('./routers/videogames/game')
-const user = require('./routers/user')
+const user = require('./routers/users/user')
 const auth = require('./routers/auth')
 const upload = require('./routers/upload')
 const uploadImgGame = require('./routers/videogames/uploadGame')
-const uploadImgUser = require('./routers/uploadUser')
+const uploadImgUser = require('./routers/users/uploadUser')
 
 //Config midldlewares
 app.use(cors({
