@@ -2,7 +2,7 @@ const express = require('express')
 const controllerAuth = require('../controllers/auth')
 const router = express.Router()
 const authJwt = require('../middlewares/authJwt')
-const controllerUploadUser = require('../controllers/uploadUser');
+const controllerUploadUser = require('../controllers/users/uploadUser');
 
 router.use((req, res, next) => {
     res.header(
