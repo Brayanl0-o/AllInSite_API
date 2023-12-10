@@ -5,8 +5,9 @@ const Schema = mongoose.Schema
 const gameSchema = new Schema({
     gameName: {
         type: String,
-        required: [true,"Ingresa el nombre del juego"],   
-        maxLength: 50
+        required: [true,"Ingresa el nombre del juego"],
+        minLength:4,   
+        maxLength: 60
     },
     gameImg: {
         type: String,
@@ -15,6 +16,7 @@ const gameSchema = new Schema({
     platform: {
         type: String,
         required: false,
+        minLength: 5,
         maxLength: 60
     },
     releaseDate: {
@@ -24,17 +26,20 @@ const gameSchema = new Schema({
     developer: {
         type: String,
         required: false,
-        maxLength: 40
+        minLength: 4,
+        maxLength: 60
     },
     genre: {
         type: String,
         required: false,
+        minLength: 4,
         maxLength: 30
     },
     averageRating: {
         type: Number,
         required: false,
-
+        minLength: 1,
+        maxLength: 2,
     },
     descriptionGame:{
         type: String,
