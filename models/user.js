@@ -10,12 +10,14 @@ const userSchema = new Schema({
     firstName:{
         type: String,
         required: true,
-        maxLength: 25
+        minLength:3,
+        maxLength: 30
     },
     lastName:{
         type: String,
         required: true,
-        maxLength: 25
+        minLength:3,
+        maxLength: 30
     },
     userImg: {
         type: String,
@@ -31,11 +33,15 @@ const userSchema = new Schema({
             },
             message: props => `${props.value} is not a valid email`
         },
-        required: [true, 'user email required']
+        required: [true, 'user email required'],
+        minLength:5,
+        maxLength: 100
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        minLength:4,
+        maxLength: 25
     },
     phoneNumber:{
         type:String,
@@ -45,6 +51,8 @@ const userSchema = new Schema({
     country:{
         type: String,
         default: "Colombia",
+        minLength:3,
+        maxLength: 25
     },
     years:{
         type: Number,
