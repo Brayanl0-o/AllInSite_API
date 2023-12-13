@@ -26,7 +26,6 @@ const gameSchema = new Schema({
     developer: {
         type: String,
         required: false,
-        minLength: 4,
         maxLength: 60
     },
     genre: {
