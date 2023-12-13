@@ -17,16 +17,19 @@ const controllerAuth={
     //Controlador para la creacion de Usuarios & Administradores
     signup: async (req,res) =>{
         try{
-        console.log('req.body:', req.body);
+        // console.log('req.body:', req.body);
         // console.log('req.file:', req.file);
         
-        const {firstName, lastName, email, password, phoneNumber, country, years, descriptionUser, roles} = req.body
+        const {firstName, lastName, email, password, phoneNumber, country, years, descriptionUser} = req.body
         const userImg =  req.file?.filename ;
         const existingImg = await User.findOne({userImg: userImg}).exec();
         if(existingImg){
           return res.status(400).json({ message: 'La imagen ya existe en la base de datos.' });
         }
         const userName = `${firstName} ${lastName}`;
+
+        const roles = req.body.roles ? req.body.roles : ["usuario"];
+
         const newUser = new User({
             userName,
             firstName,
@@ -43,14 +46,17 @@ const controllerAuth={
        
 
         const savedUser= await newUser.save()
+
         const tokenData = {id: savedUser._id, roles:savedUser.roles};
         console.log('Datos para firmar el token:', tokenData);
+
         const token = jwt.sign(tokenData, config.SECRET,{
             expiresIn: 86400 //tiempo de que tarda en expirar el token (cada 24h)
         })
         const decodedToken = jwt.decode(token);
         console.log('Contenido del token decodificado:', decodedToken);
         
+
         res.status(200).json({token, savedUser})
       }catch(error){
           return res.status(500).json({error:"Error interno del servidor", details: error.message})
