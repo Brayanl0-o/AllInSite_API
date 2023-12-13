@@ -64,7 +64,11 @@ const userSchema = new Schema({
         default: "sin descripcion...",
         maxLength:400
     },
-    roles:[String]
+    roles:{
+        type: [String]
+        // default: "usuario"
+    }
+    
 
 },{versionKey: false,timestamps: true})
 
