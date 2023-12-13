@@ -4,14 +4,14 @@ const controllerGame = {
     create: async (req, res) => {
         try {
             // console.log('req game',req.body)
+            // console.log('req file',req.file)
+
             const { gameName, platform, releaseDate, developer, genre, averageRating, descriptionGame } = req.body
             const gameImg = req.file.filename;
             // Verificar si la imagen ya existe en la base de datos
-            const existingGame = await Game.findOne({ gameImg: gameImg }).exec();
-            if (existingGame) {
-            // La imagen ya existe, puedes manejar esto según tus necesidades
-            // Por ejemplo, puedes no guardarla nuevamente.
-            return res.status(400).json({ message: 'La imagen ya existe en la base de datos.' });
+            const existingGameImg = await Game.findOne({ gameImg: gameImg }).exec();
+            if (existingGameImg) {
+                return res.status(400).json({ message: 'La imagen ya existe en la base de datos.' });
             }
             
             const game = new Game({
@@ -31,7 +31,8 @@ const controllerGame = {
             return res.status(200).json({ savedGame })
         }
         catch (error) {
-            return res.status(500).json({ msg: error })
+            console.error('Error al procesar la solicitud:', error);
+            return res.status(500).json({ msg: 'Error interno del servidor', error: error.message });
         }
     },
     getGame: async (req, res) => {
