@@ -18,17 +18,16 @@ const controllerAuth={
     signup: async (req,res) =>{
         try{
         console.log('req.body:', req.body);
-        console.log('req.file:', req.file);
-
-        const {firstName, lastName, email, password, phoneNumber, country, years, descriptionUser} = req.body
+        // console.log('req.file:', req.file);
+        
+        const {firstName, lastName, email, password, phoneNumber, country, years, descriptionUser, roles} = req.body
         const userImg =  req.file?.filename ;
         const existingImg = await User.findOne({userImg: userImg}).exec();
         if(existingImg){
           return res.status(400).json({ message: 'La imagen ya existe en la base de datos.' });
         }
-
         const userName = `${firstName} ${lastName}`;
-        const userRegis = new User({
+        const newUser = new User({
             userName,
             firstName,
             lastName,
@@ -38,16 +37,20 @@ const controllerAuth={
             phoneNumber,
             country,
             years,
-            descriptionUser
+            descriptionUser,
+            roles
         })
-        // Asigna un rol al usuario
-        userRegis.roles = ['usuario'];
+       
 
-        const savedUser= await userRegis.save()
-
-        const token = jwt.sign({id: savedUser._id}, config.SECRET,{
+        const savedUser= await newUser.save()
+        const tokenData = {id: savedUser._id, roles:savedUser.roles};
+        console.log('Datos para firmar el token:', tokenData);
+        const token = jwt.sign(tokenData, config.SECRET,{
             expiresIn: 86400 //tiempo de que tarda en expirar el token (cada 24h)
         })
+        const decodedToken = jwt.decode(token);
+        console.log('Contenido del token decodificado:', decodedToken);
+        
         res.status(200).json({token, savedUser})
       }catch(error){
           return res.status(500).json({error:"Error interno del servidor", details: error.message})
@@ -68,11 +71,11 @@ const controllerAuth={
           }
 
           // Una vez autenticado, genera un nuevo token
-          const token = jwt.sign({ id: userFound._id, role: userFound.role }, config.SECRET, {
+          const token = jwt.sign({ id: userFound._id, roles: userFound.roles }, config.SECRET, {
             expiresIn: 86400
           });
 
-          res.json({ token, userFound: { _id: userFound._id, role: userFound.role } });
+          res.json({ token, userFound: { _id: userFound._id, roles: userFound.roles } });
       } catch (error) {
         return res.status(500).json({ msg: 'Error interno del servidor', details: error.message });
       }
