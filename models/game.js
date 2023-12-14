@@ -5,17 +5,17 @@ const Schema = mongoose.Schema
 const gameSchema = new Schema({
     gameName: {
         type: String,
-        required: [true,"Ingresa el nombre del juego"],
+        required: true,
         minLength:4,   
         maxLength: 60
     },
     gameImg: {
         type: String,
-        required: false
+        required: true
     },
     platform: {
         type: String,
-        required: false,
+        required: true,
         minLength: 5,
         maxLength: 60
     },
@@ -30,7 +30,7 @@ const gameSchema = new Schema({
     },
     genre: {
         type: String,
-        required: false,
+        required: true,
         minLength: 4,
         maxLength: 30
     },
@@ -43,7 +43,7 @@ const gameSchema = new Schema({
     descriptionGame:{
         type: String,
         maxLength: 450,
-        required: false,
+        required: true,
     }
 },{versionKey: false});
 
