@@ -21,7 +21,8 @@ const gameSchema = new Schema({
     },
     releaseDate: {
         type: Date,
-        required: false
+        required: true,
+
     },
     developer: {
         type: String,
@@ -36,9 +37,10 @@ const gameSchema = new Schema({
     },
     averageRating: {
         type: Number,
-        required: false,
         minLength: 1,
         maxLength: 2,
+        required: true,
+
     },
     descriptionGame:{
         type: String,
