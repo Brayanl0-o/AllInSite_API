@@ -21,7 +21,7 @@ const controllerAuth={
         // console.log('req.file:', req.file);
         
         const {firstName, lastName, email, password, phoneNumber, country, years, descriptionUser} = req.body
-        const userImg =  req.file?.filename ;
+        const userImg =  req.file?.filename;
         const existingImg = await User.findOne({userImg: userImg}).exec();
         if(existingImg){
           return res.status(400).json({ message: 'La imagen ya existe en la base de datos.' });
