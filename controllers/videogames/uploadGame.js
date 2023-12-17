@@ -1,41 +1,39 @@
 const multer = require('multer')
 const sharp = require('sharp')
-const fs = require('fs')
-const Game = require('../../models/game')
-// const helperImg =(filePath,fileName, size = 400) => {
-//     return sharp(filePath)
-//         .resize(size)
-//         .toFile(`./optimize/videogames/${fileName}`)
-// }
+
+const helperImg =(filePath,fileName, width = 400, height = 400) => {
+    return sharp(filePath)
+        .resize(height)
+        .toFormat('webp', {quality: 70})
+        .withMetadata(false)
+        .toFile(`./uploads/videogames/${fileName}.webp`)
+}
 const storage = multer.diskStorage({
-    destination: (req, file, cb) =>{
-        cb(null, './uploads/videogames')
-    },
-    filename: async (req, file, cb)=>{
-        const gameId = req.body.gameId;
-        const uniqueFileName = `${gameId}_${file.originalname}`;
-    
-        // Verifica si la imagen ya existe en la base de datos
-        const existingGame = await Game.findOne({ _id: gameId, gameImg: uniqueFileName }).exec();
-        if (existingGame) {
-          // La imagen ya existe, no la guarda nuevamente.
-          console.log('La imagen ya existe en la base de datos.');
-          return cb(null, existingGame.gameImg);
-        } else {
-          // La imagen no existe, la guarda como una nueva.
-          cb(null, uniqueFileName);
-        }
+
+    filename:  (req, file, cb)=>{
+      cb(null, `${file.originalname}`)
       }
 })
 
-const upload = multer({storage})
+const upload = multer({storage}).single('gameImg')
 
-exports.upload = upload.single('gameImg')
 
-exports.uploadFile = (req, res) => {
+const uploadFile = (req, res, next) => {
 
-    // helperImg(req.file.path,`small-resize-${req.file.filename}`, 400); 
-    // helperImg(req.file.path,`medium-resize-${req.file.filename}`, 1000);
-    // helperImg(req.file.path,`large-resize-${req.file.filename}`, 1600);
-    res.send({data: 'Imagen cargada'})
+  console.log('Llamada a uploadFile');
+  try {
+    const originalFileName = req.file.originalname;
+    const fileNameWithoutExtension = originalFileName.split('.').slice(0, -1).join('.');
+    helperImg(req.file.path, fileNameWithoutExtension,  1700 );
+      console.log('Ejecutó helperImg');
+      // res.send({ data: 'Imagen cargada' });
+      next();
+  } catch (error) {
+      console.error('Error al procesar la carga de imagen para videogame:', error);
+      res.status(500).send({ error: 'Error interno del servidor' });
+  }
+}
+module.exports = {
+  upload, 
+  uploadFile
 }
