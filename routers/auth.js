@@ -12,7 +12,7 @@ router.use((req, res, next) => {
     next();
     }); // validaciones para token en la aplicacion 
 
-router.post('/signup',controllerUploadUser.upload, controllerAuth.signup) 
+router.post('/signup',controllerUploadUser.upload, controllerUploadUser.uploadFile, controllerAuth.signup) 
 
 router.post('/login',controllerAuth.login) 
 
