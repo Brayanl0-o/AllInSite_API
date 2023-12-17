@@ -1,7 +1,12 @@
 # Node
 /node_modules
+
 /uploads/trys/
 /uploads/OldImages/
+
 /middlewares/imageRefiner.js
+
+/controllers/upload.js
+/routers/upload.js
 
 .env
