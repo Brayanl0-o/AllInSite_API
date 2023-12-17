@@ -6,7 +6,7 @@ const controllerUploadUser = require('../../controllers/users/uploadUser');
 router.post('/create', controllerUser.create)
 router.get('/', controllerUser.getUser)
 router.get('/:id', controllerUser.getUserById)
-router.put('/update/:id',controllerUploadUser.upload, controllerUser.updateUser)
+router.put('/update/:id',controllerUploadUser.upload, controllerUploadUser.uploadFile, controllerUser.updateUser)
 router.delete('/delete/:id', controllerUser.deleteUser)
 
 module.exports = router
