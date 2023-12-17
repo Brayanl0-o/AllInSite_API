@@ -7,8 +7,8 @@ const authJwt = require('../../middlewares/authJwt')
 
 
 router.get('/filter', controllerGame.filterGames);
-router.post('/create',authJwt.verifyToken, validateRoles, controllerUploadGame.upload, controllerGame.create)
-router.patch('/update/:id', authJwt.verifyToken, validateRoles,controllerUploadGame.upload, controllerGame.updateGame)
+router.post('/create',authJwt.verifyToken, validateRoles, controllerUploadGame.upload, controllerUploadGame.uploadFile, controllerGame.create)
+router.patch('/update/:id', authJwt.verifyToken, validateRoles,controllerUploadGame.upload, controllerUploadGame.uploadFile, controllerGame.updateGame)
 router.get('/', controllerGame.getGame)
 router.get('/:id', controllerGame.getGameById)
 router.delete('/delete/:id',  authJwt.verifyToken,validateRoles, controllerGame.deleteGame)
