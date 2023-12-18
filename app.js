@@ -5,7 +5,7 @@ const app = express();
 const game = require('./routers/videogames/game')
 const user = require('./routers/users/user')
 const auth = require('./routers/auth')
-const upload = require('./routers/upload')
+// const upload = require('./routers/upload')
 const uploadImgGame = require('./routers/videogames/uploadGame')
 const uploadImgUser = require('./routers/users/uploadUser')
 
@@ -34,7 +34,7 @@ app.get('/uploads/:category/:filename.:ext', (req, res) => {
   });
 
 //router global
-app.use('/upload', upload )
+// app.use('/upload', upload )
 app.use('/uploadImgGame', uploadImgGame )
 app.use('/users', user)
 app.use('/games', game)
