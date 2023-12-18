@@ -19,6 +19,19 @@ app.use('/uploads/users', express.static('uploads/users'));
 
 app.use(express.json());
 
+app.get('/uploads/:category/:filename.:ext', (req, res) => {
+    const category = req.params.category;
+    const filename = req.params.filename;
+    const ext = req.params.ext;
+  
+    // Verificar si la extensión no es .webp y redirigir a la versión .webp
+    if (ext !== 'webp') {
+      res.redirect(`/uploads/${category}/${filename}.webp`);
+    } else {
+      // Si la extensión ya es .webp, simplemente servir el archivo
+      res.sendFile(path.join(__dirname, `./uploads/${category}/${filename}.${ext}`));
+    }
+  });
 
 //router global
 app.use('/upload', upload )
