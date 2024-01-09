@@ -24,7 +24,7 @@ const uploadFile = (req, res, next)=> {
         helperImage(req.file.path, fileNameWithoutExtension,   1500, 1100 );
         next();
       } catch (error) {
-          console.error('Error al procesar la carga de imagen para videogame:', error);
+          console.error('Error al procesar la carga de imagen para usuario:', error);
           res.status(500).send({ error: 'Error interno del servidor' });
       }
 }
