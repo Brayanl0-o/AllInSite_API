@@ -6,8 +6,8 @@ const game = require('./routers/videogames/game')
 const user = require('./routers/users/user')
 const auth = require('./routers/auth')
 // const upload = require('./routers/upload')
-const uploadImgGame = require('./routers/videogames/uploadGame')
-const uploadImgUser = require('./routers/users/uploadUser')
+// const uploadImgGame = require('./routers/videogames/uploadGame')
+// const uploadImgUser = require('./routers/users/uploadUser')
 
 //Config midldlewares
 app.use(cors({
@@ -35,10 +35,10 @@ app.get('/uploads/:category/:filename.:ext', (req, res) => {
 
 //router global
 // app.use('/upload', upload )
-app.use('/uploadImgGame', uploadImgGame )
+// app.use('/uploadImgGame', uploadImgGame )
 app.use('/users', user)
 app.use('/games', game)
 app.use('/auth', auth)
-app.use('/uploadImgUser', uploadImgUser )
+// app.use('/uploadImgUser', uploadImgUser )
 
 module.exports = app;
