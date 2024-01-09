@@ -20,7 +20,7 @@ const upload = multer({storage}).single('gameImg')
 
 const uploadFile = (req, res, next) => {
 
-  console.log('Llamada a uploadFile');
+  console.log('Llamada a uploadFile',req.file.originalname);
   try {
     const originalFileName = req.file.originalname;
     const fileNameWithoutExtension = originalFileName.split('.').slice(0, -1).join('.');
