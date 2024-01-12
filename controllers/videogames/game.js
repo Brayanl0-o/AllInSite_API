@@ -75,7 +75,13 @@ const controllerGame = {
         try {
             const { id } = req.params
             const game = await Game.findById(id)
-            res.json(game)
+
+            const formattedGame = {
+                ...game.toObject(),
+                releaseDate: game.releaseDate.toISOString().split('T')[0],
+            };
+        
+            res.json(formattedGame)
         }
         catch (error) {
             return res.status(500).json({ msg: error })
