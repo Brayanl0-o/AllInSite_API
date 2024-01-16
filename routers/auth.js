@@ -3,7 +3,7 @@ const controllerAuth = require('../controllers/auth')
 const router = express.Router()
 const authJwt = require('../middlewares/authJwt')
 const controllerUploadUser = require('../controllers/users/uploadUser');
-
+const validateRoles = require('../middlewares/verifyRole')
 router.use((req, res, next) => {
     res.header(
         "Access-Control-Allow-Headers",
@@ -12,11 +12,11 @@ router.use((req, res, next) => {
     next();
     }); // validaciones para token en la aplicacion 
 
-router.post('/signup',controllerUploadUser.upload, controllerUploadUser.uploadFile, controllerAuth.signup) 
+router.post('/signup', controllerUploadUser.upload, controllerUploadUser.uploadFile, controllerAuth.signup) 
 
 router.post('/login',controllerAuth.login) 
 
-router.get('/',controllerAuth.getsingup) //buscar todos los usuarios
+router.get('/', authJwt.verifyToken, validateRoles, controllerAuth.getsingup) //buscar todos los usuarios
 
 router.post("/send-password-link", controllerAuth.sendPasswordLink)
 
