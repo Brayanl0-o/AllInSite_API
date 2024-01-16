@@ -8,5 +8,6 @@
 
 /controllers/upload.js
 /routers/upload.js
-
+/routers/videogames/uploadGame.js
+/routers/users/uploadUser.js
 .env
