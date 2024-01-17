@@ -5,13 +5,21 @@ const controllerUploadGame = require('../../controllers/videogames/uploadGame');
 const validateRoles = require('../../middlewares/verifyRole')
 const authJwt = require('../../middlewares/authJwt')
 
-
+// Router to filter games
 router.get('/filter', controllerGame.filterGames);
+
+//  Router for game creation (currently is not in use)
 router.post('/create',authJwt.verifyToken, validateRoles, controllerUploadGame.upload, controllerUploadGame.uploadFile, controllerGame.create)
+
+// Router for updating game data, one for updating 
 router.patch('/update/:id', authJwt.verifyToken, validateRoles, controllerGame.updateGame)
 router.patch('/updatedGameImg/:id', authJwt.verifyToken, validateRoles,controllerUploadGame.upload, controllerUploadGame.uploadFile,controllerGame.updateGame )
+
+// Router for getting all games and game data by Id
 router.get('/', controllerGame.getGame)
 router.get('/:id', controllerGame.getGameById)
+
+// Router for deleting game data
 router.delete('/delete/:id',  authJwt.verifyToken,validateRoles, controllerGame.deleteGame)
 
 
