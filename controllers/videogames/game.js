@@ -94,7 +94,14 @@ const controllerGame = {
             const { id } = req.params;
             const updatedGameData = req.body;
             const updateGameImg = req.file;
+            const currentGame = await Game.findById(id);
             
+            const fileNameWithoutExtension = currentGame.gameImg.replace(/\..+$/,'');
+
+            if (updateGameImg && currentGame && currentGame.gameImg) {
+                const imagePath = path.resolve(__dirname, '../../uploads/videogames', `${fileNameWithoutExtension}.webp`);
+                await fs.promises.unlink(imagePath);
+            }
             if (updateGameImg) {
                 updatedGameData.gameImg = updateGameImg.filename;
             }
@@ -106,11 +113,12 @@ const controllerGame = {
             if (!updatedGame) {
                 return res.status(404).json({ message: 'Game no found' });
             }
-
-            // Enviar el usuario actualizado como respuesta
+            // Send the update user like response
             res.status(200).json(updatedGame);
         }
         catch (error) {
+            console.error("Error al updateAR el juego:", error);
+
             return res.status(500).json({ msg: error })
         }
     },
