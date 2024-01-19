@@ -20,12 +20,12 @@ const upload = multer({storage}).single('gameImg')
 
 const uploadFile = (req, res, next) => {
 
-  console.log('Llamada a uploadFile',req.file.originalname);
+  // console.log('Llamada a uploadFile',req.file.originalname);
   try {
     const originalFileName = req.file.originalname;
     const fileNameWithoutExtension = originalFileName.split('.').slice(0, -1).join('.');
     helperImg(req.file.path, fileNameWithoutExtension,  1700 );
-      console.log('Ejecutó helperImg');
+      // console.log('Ejecutó helperImg');
       // res.send({ data: 'Imagen cargada' });
       next();
   } catch (error) {
