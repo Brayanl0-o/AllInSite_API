@@ -1,4 +1,6 @@
 const User = require('../../models/user')
+const fs = require('fs')
+const path = require('path')
 
 const controllerUser ={
     create:async (req,res) =>{
@@ -54,10 +56,17 @@ const controllerUser ={
             const {id } = req.params;
             const updatedUserData = req.body;
             const updateUserImg = req.file;
+            const currentUser = await User.findById(id);
+            
+            const fileNameWithoutExtension = currentUser.userImg.replace(/\..+$/,'');
 
-                if (updateUserImg){
-                    updatedUserData.userImg = updateUserImg.filename; 
-                }
+            if(updateUserImg && currentUser && currentUser.userImg){
+                const imagePath = path.resolve(__dirname,'../../uploads/users/',`${fileNameWithoutExtension}.webp` );
+                await fs.promises.unlink(imagePath);
+            }
+            if (updateUserImg){
+                updatedUserData.userImg = updateUserImg.filename; 
+            }
 
             // Encuentra al usuario por su ID y actualiza sus datos
             const updatedUser = await User.findByIdAndUpdate(id, updatedUserData, {
@@ -67,10 +76,11 @@ const controllerUser ={
             if (!updatedUser) {
                 return res.status(404).json({ message: 'User no found ' });
             }
-
+                
             // Enviar el usuario actualizado como respuesta
             res.status(200).json(updatedUser);
         }catch(error){
+            console.error('Error to update userImg  ',error)
             res.status(500).json({ message: 'Error in User updated',msg:error });
         }
     },
