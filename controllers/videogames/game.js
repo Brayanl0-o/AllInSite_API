@@ -119,7 +119,7 @@ const controllerGame = {
             if (!updatedGame) {
                 return res.status(404).json({ message: 'Game no found' });
             }
-            // Send the updated game as a response
+            // Send the updated game as a success response
             res.status(200).json(updatedGame);
         }
         catch (error) {
@@ -128,65 +128,84 @@ const controllerGame = {
             return res.status(500).json({ msg: error })
         }
     },
+    // Function for deleting a game
     deleteGame: async (req, res) => {
         try {
+            // Retrieve the Id from 'req.params'
             const { id } = req.params
+
+            // Retrieve the game by Id from the database
             const game = await Game.findById(id);
 
+            // Retrieve a filename for the game image without extension
             const fileNameWithoutExtension = game.gameImg.replace(/\..+$/,'');
 
+            // Retrieve the correct url with 'path.resolve' and '__dirname' for an absolute url
             const imagePath = path.resolve(__dirname, '../../uploads/videogames', `${fileNameWithoutExtension}.webp`);
-            // console.log("Ruta completa del archivo:", path.resolve(__dirname, imagePath));
+            // Retrieve the old image using 'fs.promises.unlink'
             await fs.promises.unlink(imagePath);
 
+            // Find and delete the game in the database
             await Game.findByIdAndDelete(id);
 
+            // Send a success message as a response
             res.json({ msg: 'Game Deleted' })
         } catch (error) {
-            console.error("Error al eliminar el juego:", error);
+            // If something goes wrong, show an error
+            console.error("Error deleting game:", error);
             return res.status(500).json({ msg: error })
         }
     },
+    // Function for handling game filters
     filterGames: async (req, res) => {
         try {
+            // Extract available filters  from 'req.query'
           const { genre, platform, developer, order, startDate, endDate} = req.query;
-
+          
+          // Save the base query
           let query = {};
 
           if (genre) {
+            // Search for the genre in the chain using a regular expresssion 
             query.genre = { $regex: new RegExp(genre, 'i') };;
           }
 
           if (platform) {
-            // Utiliza una expresión regular para buscar la plataforma en la cadena.
+            // Search for the platform in the chain using a regular expresssion 
             query.platform = { $regex: new RegExp(platform, 'i') };
           }
 
         if(developer){
-                query.developer = developer;
+            // Search for the developer in the chain 
+            query.developer = developer;
         }
 
         if (startDate && endDate) {
+            // Filter games based on release date range
             query.releaseDate = {
               $gte: new Date(startDate),
               $lte: new Date(endDate),
             };
         }
 
+        // Clean sort options
         const sortOptions = {};
 
-        // Ordenar por calificación ascendente o descendente
+        // Order by rating in ascending or descending order
         if (order === 'asc') {
-        sortOptions.averageRating = 1;
+            sortOptions.averageRating = 1;
         } else if (order === 'desc') {
-        sortOptions.averageRating = -1;
+            sortOptions.averageRating = -1;
         }
 
-          const filteredGames = await Game.find(query).sort(sortOptions);
-
-          res.status(200).json(filteredGames);
+        // Search for games with the specified parameters (query) and apply sorting
+        const filteredGames = await Game.find(query).sort(sortOptions);
+            // Send the filtered games as a success response
+            res.status(200).json(filteredGames);
         } catch (error) {
-          res.status(500).json({ error: 'Internal Server Error' });
+            // If something goes wrong, show an error
+            // console.error('Error filtering games:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
         }
       }
 }
