@@ -20,7 +20,7 @@ const controllerAuth={
         // console.log('req.body:', req.body);
         // console.log('req.file:', req.file);
         
-        const {firstName, lastName, email, password, phoneNumber, country, years, descriptionUser} = req.body
+        const {firstName, lastName, email, password, phoneNumber, country, years, descriptionUser} = req.body;
         const userImg =  req.file?.filename;
         const existingImg = await User.findOne({userImg: userImg}).exec();
         if(existingImg){
@@ -42,10 +42,10 @@ const controllerAuth={
             years,
             descriptionUser,
             roles
-        })
+        });
        
 
-        const savedUser= await newUser.save()
+        const savedUser= await newUser.save();
 
         const tokenData = {id: savedUser._id, roles:savedUser.roles};
         console.log('Datos para firmar el token:', tokenData);
@@ -57,9 +57,9 @@ const controllerAuth={
         console.log('Contenido del token decodificado:', decodedToken);
         
 
-        res.status(200).json({token, savedUser})
+        res.status(200).json({token, savedUser});
       }catch(error){
-          return res.status(500).json({error:"Error interno del servidor", details: error.message})
+          return res.status(500).json({error:"Error interno del servidor", details: error.message});
       }
     },
     login: async (req, res) => {
@@ -88,10 +88,10 @@ const controllerAuth={
     },
     getsingup: async (req, res) => {
         try {
-            const users = await User.find({})
-            res.json(users.reverse())
+            const users = await User.find({});
+            res.json(users.reverse());
         } catch (error) {
-            return res.status(500).json({ msg:"Error interno del servidor", details: error.message })
+            return res.status(500).json({ msg:"Error interno del servidor", details: error.message });
         }
     },
 
@@ -142,25 +142,25 @@ const controllerAuth={
       try{
         const newPassword = req.body.password; //Get password request's body
         const id = req.userId;
-        console.log(req.userId)
-        console.log(req.newPassword)
+        // console.log(req.userId)
+        // console.log(req.newPassword)
         //Created a new alt
         const saltRounds = 10;
         const salt = await bcrypt.genSalt(saltRounds);
 
         // cryptinh new password using new salt 
-        const hashedPassword = await bcrypt.hash(newPassword, salt)
+        const hashedPassword = await bcrypt.hash(newPassword, salt);
       
         const user = await User.findByIdAndUpdate(
           {_id:id},
           {password: hashedPassword}
         );
 
-        res.status(201).json({message: "Password changed"})
+        res.status(201).json({message: "Password changed"});
       
       }catch(error){
         res.status(401).json({status:401, error:"Server error"});
       }
     }
 }
-module.exports = controllerAuth
+module.exports = controllerAuth;
