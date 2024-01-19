@@ -14,22 +14,27 @@ const transporter = nodemailer.createTransport({
   });
 
 const controllerAuth={
-    //Controlador para la creacion de Usuarios & Administradores
+    // Function for register a new user (rol user & admin)
     signup: async (req,res) =>{
         try{
-        // console.log('req.body:', req.body);
-        // console.log('req.file:', req.file);
-        
+        // Extract data from 'req.body'
         const {firstName, lastName, email, password, phoneNumber, country, years, descriptionUser} = req.body;
+        // Extract userImg from 'req.file'
         const userImg =  req.file?.filename;
+
+        // Check if the user image already exists
         const existingImg = await User.findOne({userImg: userImg}).exec();
         if(existingImg){
+          // If the image already exists, return an error
           return res.status(400).json({ message: 'La imagen ya existe en la base de datos.' });
         }
+
         const userName = `${firstName} ${lastName}`;
 
+        // Retrieve 'roles' from req.body.roles or default to ["usuario"]
         const roles = req.body.roles ? req.body.roles : ["usuario"];
-
+        
+        // Creating a new instance of the user
         const newUser = new User({
             userName,
             firstName,
@@ -44,45 +49,57 @@ const controllerAuth={
             roles
         });
        
-
+        // If everything is well, save the new user
         const savedUser= await newUser.save();
 
+        // Generate token data for signing the token
         const tokenData = {id: savedUser._id, roles:savedUser.roles};
-        console.log('Datos para firmar el token:', tokenData);
-
-        const token = jwt.sign(tokenData, config.SECRET,{
-            expiresIn: 86400 //tiempo de que tarda en expirar el token (cada 24h)
-        })
-        const decodedToken = jwt.decode(token);
-        console.log('Contenido del token decodificado:', decodedToken);
+        // console.log('Datos para firmar el token:', tokenData);
         
+        // Sign the token with tokenData using config.SECRET
+        const token = jwt.sign(tokenData, config.SECRET,{
+            expiresIn: 86400 //token expiration time (every 24h) Time
+        })
 
+        // Decoded token for detect errors
+        // const decodedToken = jwt.decode(token);
+        // // console.log('Contenido del token decodificado:', decodedToken);
+        
+        // If everything is well,  send the token and saved user as a response
         res.status(200).json({token, savedUser});
       }catch(error){
+          // If some left bad, show a error
           return res.status(500).json({error:"Error interno del servidor", details: error.message});
       }
     },
+    // Function for user login
     login: async (req, res) => {
         try {
+          // Find a user in the database with the provided email
           const userFound = await User.findOne({ email: req.body.email });
-
+          
+          // Check if the user exists
           if (!userFound) {
             return res.status(400).json({ message: 'Usuario no encontrado' });
           }
 
+          // Compare the provided password with the stored password using bcrypt  
           const isPasswordValid = await User.comparePassword(req.body.password, userFound.password);
 
+          // Check if the password is valid
           if (!isPasswordValid) {
             return res.status(401).json({ token: null, message: 'Contraseña inválida' });
           }
 
-          // Una vez autenticado, genera un nuevo token
+          // Once authenticated, generate a new JWT token
           const token = jwt.sign({ id: userFound._id, roles: userFound.roles }, config.SECRET, {
-            expiresIn: 86400
+            expiresIn: 86400, // Token expiration time (every 24h)
           });
 
+          // Send the token and user information as a response
           res.json({ token, userFound: { _id: userFound._id, roles: userFound.roles } });
       } catch (error) {
+         // If an internal server error occurs, show an error
         return res.status(500).json({ msg: 'Error interno del servidor', details: error.message });
       }
     },
@@ -142,8 +159,7 @@ const controllerAuth={
       try{
         const newPassword = req.body.password; //Get password request's body
         const id = req.userId;
-        // console.log(req.userId)
-        // console.log(req.newPassword)
+        
         //Created a new alt
         const saltRounds = 10;
         const salt = await bcrypt.genSalt(saltRounds);
