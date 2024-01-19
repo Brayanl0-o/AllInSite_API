@@ -7,7 +7,7 @@ const controllerGame = {
     create: async (req, res) => {
         try {
             // Extract data de 'req.body'
-            const { gameName, platform, releaseDate, developer, genre, averageRating, descriptionGame } = req.body
+            const { gameName, platform, releaseDate, developer, genre, averageRating, descriptionGame } = req.body;
 
             // Extract gameImg of 'req.file'
             const gameImg = req.file.filename;
@@ -29,13 +29,13 @@ const controllerGame = {
                 genre,
                 averageRating,
                 descriptionGame,
-            })
+            });
 
             // If everything is well, save the game
             const savedGame = await game.save();
 
             // If everything is well, show menssage 'Game created'
-            return res.status(200).json({message:"Game created",game: savedGame })
+            return res.status(200).json({message:"Game created",game: savedGame });
         }
         catch (error) {
             // If something goes wrong, show an error
@@ -47,13 +47,13 @@ const controllerGame = {
     getGame: async (req, res) => {
         try {
             // Retrieve all games from the database
-            const games = await Game.find({})
+            const games = await Game.find({});
 
             // Return the games in reverse order
             return res.json(games.reverse());
         } catch (error) {
             // If something goes wrong, show an error
-            return res.status(500).json({ msg: error })
+            return res.status(500).json({ msg: error });
         }
     },
     // Function for retrieving a game by ID
@@ -63,7 +63,7 @@ const controllerGame = {
             const { id } = req.params;
 
             // Retrieve the game by Id from the database
-            const game = await Game.findById(id)
+            const game = await Game.findById(id);
 
             // Create a formatted copy to modify the 'releaseDate' field
             const formattedGame = {
@@ -72,11 +72,11 @@ const controllerGame = {
             };
 
             // Return the formatted game in JSON format
-            res.json(formattedGame)
+            res.json(formattedGame);
         }
         catch (error) {
             // If something goes wrong, show an error
-            return res.status(500).json({ msg: error })
+            return res.status(500).json({ msg: error });
         }
     },
     // Function for updating a game
@@ -125,14 +125,14 @@ const controllerGame = {
         catch (error) {
             // If something goes wrong, show an error
             console.error("Error uploading game:", error);
-            return res.status(500).json({ msg: error })
+            return res.status(500).json({ msg: error });
         }
     },
     // Function for deleting a game
     deleteGame: async (req, res) => {
         try {
             // Retrieve the Id from 'req.params'
-            const { id } = req.params
+            const { id } = req.params;
 
             // Retrieve the game by Id from the database
             const game = await Game.findById(id);
@@ -149,11 +149,11 @@ const controllerGame = {
             await Game.findByIdAndDelete(id);
 
             // Send a success message as a response
-            res.json({ msg: 'Game Deleted' })
+            res.json({ msg: 'Game Deleted' });
         } catch (error) {
             // If something goes wrong, show an error
             console.error("Error deleting game:", error);
-            return res.status(500).json({ msg: error })
+            return res.status(500).json({ msg: error });
         }
     },
     // Function for handling game filters
@@ -167,7 +167,7 @@ const controllerGame = {
 
           if (genre) {
             // Search for the genre in the chain using a regular expresssion 
-            query.genre = { $regex: new RegExp(genre, 'i') };;
+            query.genre = { $regex: new RegExp(genre, 'i') };
           }
 
           if (platform) {
