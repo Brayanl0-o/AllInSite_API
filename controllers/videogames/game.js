@@ -1,4 +1,6 @@
 const Game = require('../../models/game')
+const fs = require ('fs')
+const path = require ('path')
 
 const controllerGame = {
     create: async (req, res) => {
@@ -115,9 +117,19 @@ const controllerGame = {
     deleteGame: async (req, res) => {
         try {
             const { id } = req.params
-            await Game.findByIdAndDelete(id)
+            const game = await Game.findById(id);
+            
+            const fileNameWithoutExtension = game.gameImg.replace(/\..+$/,'');
+
+            const imagePath = path.resolve(__dirname, '../../uploads/videogames', `${fileNameWithoutExtension}.webp`);
+            // console.log("Ruta completa del archivo:", path.resolve(__dirname, imagePath));
+            await fs.promises.unlink(imagePath);
+
+            await Game.findByIdAndDelete(id);
+
             res.json({ msg: 'Game Deleted' })
         } catch (error) {
+            console.error("Error al eliminar el juego:", error);
             return res.status(500).json({ msg: error })
         }
     },
