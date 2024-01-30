@@ -46,7 +46,27 @@ const gameSchema = new Schema({
         type: String,
         maxLength: 450,
         required: true,
-    }
+    },
+    sizeGame:{
+        type: Number,
+        maxLength: 5,
+        required: false,
+    },
+    ramGame:{
+        type: Number,
+        maxLength: 3,
+        required: false,
+    },
+    processorGame:{
+        type: String,
+        maxLength:200,
+        required: false,
+    },
+    graphGame:{
+        type: String,
+        maxLength: 200,
+        required: false,
+    },
 },{versionKey: false});
 
 module.exports = mongoose.model('Game', gameSchema)
