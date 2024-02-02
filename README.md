@@ -29,7 +29,7 @@
 ## Technologies & dependencies
 - Node JS   • Express • Mongoose • Nodemon
 - Multer    • Sharp   • Image-size
-- jsonwebtoken   • bcrypt   • cors
+- jsonwebtoken   • bcrypt   • nodemailer • cors
 
 
 
