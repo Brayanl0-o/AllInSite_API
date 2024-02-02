@@ -3,9 +3,13 @@ const User = require('../models/user')
 const config = require('../config')
 const nodemailer = require('nodemailer')
 const bcrypt = require('bcrypt')
-require('dotenv')
 const admin_email = process.env.ADMIN_EMAIL
 const admin_password = process.env.ADMIN_PASSWORD
+const url_env = process.env.URL
+const secret = process.env.SECRET
+
+require('dotenv').config()
+
 // email config
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -59,7 +63,7 @@ const controllerAuth={
         // console.log('Datos para firmar el token:', tokenData);
         
         // Sign the token with tokenData using config.SECRET
-        const token = jwt.sign(tokenData, config.SECRET,{
+        const token = jwt.sign(tokenData, secret,{
             expiresIn: 86400 //token expiration time (every 24h) Time
         })
 
@@ -94,7 +98,7 @@ const controllerAuth={
           }
 
           // Once authenticated, generate a new JWT token
-          const token = jwt.sign({ id: userFound._id, roles: userFound.roles }, config.SECRET, {
+          const token = jwt.sign({ id: userFound._id, roles: userFound.roles }, secret, {
             expiresIn: 86400, // Token expiration time (every 24h)
           });
 
@@ -138,16 +142,16 @@ const controllerAuth={
 
 
           // Generate a token for resetting the password
-          const token = jwt.sign({ id: userFound._id }, config.SECRET, {
+          const token = jwt.sign({ id: userFound._id }, secret, {
             expiresIn: 3600, // Token expiration time: 1 hour
           });
 
           // Configure mail options for sending the reset password email
           const mailOptions = {
-          from: config.ADMIN_EMAIL,
+          from: admin_email,
           to: email,
           subject: "Enviando correo electrónico para restablecer la contraseña",
-          text: `Este Enlace es válido por 1 horas ${config.URL}/reset-password/${token}`,
+          text: `Este Enlace es válido por 1 horas ${url_env}/reset-password/${token}`,
           };
 
           // Send the email with the reset password link
