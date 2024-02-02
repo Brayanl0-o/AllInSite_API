@@ -10,4 +10,5 @@
 /routers/upload.js
 /routers/videogames/uploadGame.js
 /routers/users/uploadUser.js
+/config.js
 .env
