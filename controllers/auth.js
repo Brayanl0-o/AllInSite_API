@@ -3,12 +3,14 @@ const User = require('../models/user')
 // const config = require('../config')
 const nodemailer = require('nodemailer')
 const bcrypt = require('bcrypt')
+require('dotenv').config();
 const admin_email = process.env.ADMIN_EMAIL
 const admin_password = process.env.ADMIN_PASSWORD
 const url_env = process.env.URL
 const secret = process.env.SECRET
+// const { validationResult } = require('express-validator')
 
-require('dotenv').config()
+
 
 // email config
 const transporter = nodemailer.createTransport({
@@ -22,12 +24,18 @@ const transporter = nodemailer.createTransport({
 const controllerAuth={
     // Function for register a new user (rol user & admin)
     signup: async (req,res) =>{
+        // const errors = validationResult(req);
+        // if (!errors.isEmpty()) {
+        //   // Si hay errores de validación, devuelve una respuesta con los errores
+        //   console.log('Errores de validación:', errors.array());
+        //   return res.status(400).json({ errors: errors.array() });
+        // }
         try{
         // Extract data from 'req.body'
         const {firstName, lastName, email, password, phoneNumber, country, years, descriptionUser} = req.body;
         // Extract userImg from 'req.file'
         const userImg =  req.file?.filename;
-
+        console.log('req', req.file, req.body)
         // Check if the user image already exists
         const existingImg = await User.findOne({userImg: userImg}).exec();
         if(existingImg){
@@ -35,14 +43,12 @@ const controllerAuth={
           return res.status(400).json({ message: 'La imagen ya existe en la base de datos.' });
         }
 
-        const userName = `${firstName} ${lastName}`;
 
         // Retrieve 'roles' from req.body.roles or default to ["usuario"]
         const roles = req.body.roles ? req.body.roles : ["usuario"];
         
         // Creating a new instance of the user
         const newUser = new User({
-            userName,
             firstName,
             lastName,
             userImg,
@@ -54,7 +60,7 @@ const controllerAuth={
             descriptionUser,
             roles
         });
-       
+        console.log('new_user',newUser)
         // If everything is well, save the new user
         const savedUser= await newUser.save();
 
@@ -125,7 +131,7 @@ const controllerAuth={
     // Function to send an email link for password reset
     sendPasswordLink : async (req, res) => {
       const email = await req.body.email;
-
+      console.log(req.body.email)
       // Check if a valid email is provided
       if (!email) {
           return res.status(406).json({ message: "Ingresa un correo válido." });
@@ -142,7 +148,7 @@ const controllerAuth={
 
 
           // Generate a token for resetting the password
-          const token = jwt.sign({ id: userFound._id }, secret, {
+          const token = jwt.sign({ id: userFound._id }, config.SECRET, {
             expiresIn: 3600, // Token expiration time: 1 hour
           });
 
