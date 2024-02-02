@@ -3,13 +3,15 @@ const User = require('../models/user')
 const config = require('../config')
 const nodemailer = require('nodemailer')
 const bcrypt = require('bcrypt')
-
+require('dotenv')
+const admin_email = process.env.ADMIN_EMAIL
+const admin_password = process.env.ADMIN_PASSWORD
 // email config
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-      user: config.ADMIN_EMAIL,
-      pass: config.ADMIN_PASSWORD,
+      user: admin_email,
+      pass: admin_password,
   },
   });
 
