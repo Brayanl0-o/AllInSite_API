@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
 const config =require('../config')
+const secret = process.env.SECRET
 
 //  Middleware to verify the token in the header 
 const authJwt ={
@@ -11,7 +12,7 @@ const authJwt ={
 
         // Decode and verify the token using the config.SECRET to extract user data
         try{
-            const decoded = jwt.verify(token,config.SECRET)
+            const decoded = jwt.verify(token,secret)
             req.userId = decoded.id
 
             // Query the bd to check if the user exists
