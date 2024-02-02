@@ -32,14 +32,6 @@
 - jsonwebtoken   • bcrypt   • nodemailer 
 
 
-
-## Installtion
-
-1. Clone this repository on your local machine.
-2. Run npm install to install the dependencies.
-3. Set the necessary environment variables in the .env file  (if neeeded)
-4. Run npm start to start the application.
-
 ## Installation
 
 1. Clone the repository on your local machine
