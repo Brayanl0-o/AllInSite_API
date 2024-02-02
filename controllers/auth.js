@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
-const config = require('../config')
+// const config = require('../config')
 const nodemailer = require('nodemailer')
 const bcrypt = require('bcrypt')
 const admin_email = process.env.ADMIN_EMAIL
