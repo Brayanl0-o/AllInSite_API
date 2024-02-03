@@ -157,7 +157,7 @@ const controllerAuth={
           from: admin_email,
           to: email,
           subject: "Enviando correo electrónico para restablecer la contraseña",
-          text: `Este Enlace es válido por 1 horas ${url_env}/auth/reset-password/${token}`,
+          text: `Este Enlace es válido por 1 horas ${url_env}/auth/change-password/${token}`,
           };
 
           // Send the email with the reset password link
