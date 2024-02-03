@@ -4,10 +4,10 @@ const User = require('../models/user')
 const nodemailer = require('nodemailer')
 const bcrypt = require('bcrypt')
 require('dotenv').config();
-const admin_email = process.env.ADMIN_EMAIL
-const admin_password = process.env.ADMIN_PASSWORD
-const url_env = process.env.URL
-const secret = process.env.SECRET
+const admin_email = process.env.ADMIN_EMAIL;
+const admin_password = process.env.ADMIN_PASSWORD;
+const url_env = process.env.URL;
+const secret = process.env.SECRET;
 // const { validationResult } = require('express-validator')
 
 
@@ -148,7 +148,7 @@ const controllerAuth={
 
 
           // Generate a token for resetting the password
-          const token = jwt.sign({ id: userFound._id }, config.SECRET, {
+          const token = jwt.sign({ id: userFound._id }, secret, {
             expiresIn: 3600, // Token expiration time: 1 hour
           });
 
