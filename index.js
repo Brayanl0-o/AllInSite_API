@@ -3,7 +3,7 @@ const app = require('./app')
 const database = require('./database')
 // const mongoose = require('mongoose')
 
-require('dotenv').config()
+require('dotenv').config();
 
 const port = 3000 // conecting in port
 app.listen(port, () => {
