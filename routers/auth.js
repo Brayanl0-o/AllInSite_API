@@ -27,5 +27,5 @@ router.get('/', authJwt.verifyToken, validateRoles, controllerAuth.getsingup)
 router.post("/send-password-link", controllerAuth.sendPasswordLink)
 
 //  Router for change a user´s password 
-router.post("/change-password", authJwt.verifyToken, controllerAuth.changePassword,)
+router.post("/change-password", authJwt.verifyToken, controllerAuth.changePassword)
 module.exports = router
