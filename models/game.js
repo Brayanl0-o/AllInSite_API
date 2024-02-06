@@ -13,12 +13,6 @@ const gameSchema = new Schema({
         type: String,
         required: true
     },
-    platform: {
-        type: String,
-        required: true,
-        minLength: 5,
-        maxLength: 60
-    },
     releaseDate: {
         type: Date,
         required: true,
@@ -47,26 +41,32 @@ const gameSchema = new Schema({
         maxLength: 450,
         required: true,
     },
-    sizeGame:{
-        type: Number,
-        maxLength: 5,
-        required: false,
-    },
-    ramGame:{
-        type: Number,
-        maxLength: 3,
-        required: false,
-    },
-    processorGame:{
+    platform: {
         type: String,
-        maxLength:200,
-        required: false,
+        required: true,
+        minLength: 5,
+        maxLength: 60
     },
-    graphGame:{
-        type: String,
-        maxLength: 200,
-        required: false,
-    },
+    // sizeGame:{
+    //     type: Number,
+    //     maxLength: 5,
+    //     required: false,
+    // },
+    // ramGame:{
+    //     type: Number,
+    //     maxLength: 3,
+    //     required: false,
+    // },
+    // processorGame:{
+    //     type: String,
+    //     maxLength:200,
+    //     required: false,
+    // },
+    // graphGame:{
+    //     type: String,
+    //     maxLength: 200,
+    //     required: false,
+    // },
 },{versionKey: false});
 
 module.exports = mongoose.model('Game', gameSchema)
