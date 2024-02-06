@@ -1,4 +1,5 @@
 const Game = require('../../models/game')
+const gameRequeriments = require('../../models/gameRequirements')
 const fs = require ('fs')
 const path = require ('path')
 
@@ -41,6 +42,36 @@ const controllerGame = {
             // If something goes wrong, show an error
             console.error('Error uploading th game:', error);
             return res.status(500).json({ msg: 'Internal server error', error: error.message });
+        }
+    },  
+    createRequirementes: async ( req,res) => {
+        try{
+            const {gameId, platform, sizeGame, ramGame, processorGame, graphGame} = req.body;
+
+            const gameRequirements = new gameRequeriments ({
+                game: gameId, 
+                platform, sizeGame, ramGame, processorGame, graphGame
+            })
+    
+            const savedRequirements = await gameRequirements.save()
+            return res.status(200).json({message:"Game savedRequirements ",game: savedRequirements  });
+        }catch(error){
+            console.error('Error create the requeriments:', error);
+            return res.status(500).json({ msg: 'Internal server error', error: error.message });
+        }
+        
+    }, 
+    // Function for retrieving all games requirements
+    getGameRequirements: async (req, res) => {
+        try {
+            // Retrieve all games from the database
+            const gameRequirements = await gameRequeriments.find({});
+
+            // Return the games in reverse order
+            return res.json(gameRequirements.reverse());
+        } catch (error) {
+            // If something goes wrong, show an error
+            return res.status(500).json({ msg: error });
         }
     },
     // Function for retrieving all games
@@ -207,6 +238,7 @@ const controllerGame = {
             // console.error('Error filtering games:', error);
             res.status(500).json({ error: 'Internal Server Error' });
         }
-      }
+      },
+    
 }
 module.exports = controllerGame;
