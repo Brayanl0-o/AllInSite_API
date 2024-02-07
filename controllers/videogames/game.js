@@ -8,7 +8,7 @@ const controllerGame = {
     create: async (req, res) => {
         try {
             // Extract data de 'req.body'
-            const { gameName, platform, releaseDate, developer, genre, averageRating, descriptionGame } = req.body;
+            const { gameName, platform, releaseDate, developer, genre, averageRating, descriptionGame, gameTrailer } = req.body;
 
             // Extract gameImg of 'req.file'
             const gameImg = req.file.filename;
@@ -30,6 +30,7 @@ const controllerGame = {
                 genre,
                 averageRating,
                 descriptionGame,
+                gameTrailer
             });
 
             // If everything is well, save the game
@@ -60,7 +61,8 @@ const controllerGame = {
             return res.status(500).json({ msg: 'Internal server error', error: error.message });
         }
         
-    }, 
+    },
+    
     // Function for retrieving all games requirements
     getGameRequirements: async (req, res) => {
         try {
