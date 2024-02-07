@@ -41,6 +41,10 @@ const gameSchema = new Schema({
         maxLength: 450,
         required: true,
     },
+    gameTrailer:{
+        type:String,
+        required: false,
+    },
     platform: {
         type: String,
         required: true,
