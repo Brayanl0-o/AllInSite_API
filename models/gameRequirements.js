@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema
 const gameRequirementsSchema = new Schema({
-    game: { 
+    gameId: { 
         type: Schema.Types.ObjectId,
         ref: 'Game',
         requierd: true,
@@ -17,21 +17,25 @@ const gameRequirementsSchema = new Schema({
         type: Number,
         maxLength: 5,
         required: false,
+        default: '0'
     },
     ramGame:{
         type: Number,
         maxLength: 3,
         required: false,
+        default: '0'
     },
     processorGame:{
         type: String,
         maxLength:200,
         required: false,
+        default: 'No añadido'
     },
     graphGame:{
         type: String,
         maxLength: 200,
         required: false,
+        default: 'No añadido'
     },
 },{versionKey: false});
 
