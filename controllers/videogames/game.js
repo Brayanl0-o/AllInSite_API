@@ -62,7 +62,31 @@ const controllerGame = {
         }
         
     },
-    
+    updateRequirements: async (req,res) => {
+        try {
+            // Retrieve the Id from 'req.params'
+            const { id } = req.params;
+
+            // Retrieve the game data from 'req.body'
+            const updatedGameRequirements = req.body;
+
+            // Find and update the game in the database
+            const updatedGameRequirementsData = await gameRequirements.findByIdAndUpdate(id, updatedGameRequirements,  {
+                new: true,
+            });
+
+            // If the game is not found, show an error message
+            if (!updatedGameRequirementsData) {
+                return res.status(404).json({ message: 'Game no found' });
+            }
+            // Send the updated game as a success response
+            res.status(200).json(updatedGameRequirementsData);
+        }catch (error) {
+            // If something goes wrong, show an error
+            console.error("Error updating game requirements:", error);
+            return res.status(500).json({ msg: error });
+        }
+    },
     // Function for retrieving all games requirements
     getGameRequirements: async (req, res) => {
         try {
@@ -71,6 +95,22 @@ const controllerGame = {
 
             // Return the games in reverse order
             return res.json(gameRequirements.reverse());
+        } catch (error) {
+            // If something goes wrong, show an error
+            return res.status(500).json({ msg: error });
+        }
+    },
+     // Function for retrieving all games requirements
+     getGameRequirementsById: async (req, res) => {
+        try {
+            // Retrieve the Id from 'req.params'
+            const { id } = req.params;
+
+            // Retrieve all games from the database
+            const gameRequirements = await gameRequeriments.find({id});
+
+            // Return the games in reverse order
+            return res.json(gameRequirements);
         } catch (error) {
             // If something goes wrong, show an error
             return res.status(500).json({ msg: error });
