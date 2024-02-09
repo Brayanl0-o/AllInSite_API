@@ -50,7 +50,7 @@ const controllerGame = {
             const {gameId, platform, sizeGame, ramGame, processorGame, graphGame} = req.body;
 
             const gameRequirements = new gameRequeriments ({
-                game: gameId, 
+                gameId: gameId, 
                 platform, sizeGame, ramGame, processorGame, graphGame
             })
     
@@ -103,11 +103,8 @@ const controllerGame = {
      // Function for retrieving all games requirements
      getGameRequirementsById: async (req, res) => {
         try {
-            // Retrieve the Id from 'req.params'
-            const { id } = req.params;
-
-            // Retrieve all games from the database
-            const gameRequirements = await gameRequeriments.find({id});
+            // Retrieve requeriments by Id game from the database
+            const gameRequirements = await gameRequeriments.find({gameId: req.params.id});
 
             // Return the games in reverse order
             return res.json(gameRequirements);
