@@ -62,30 +62,36 @@ const controllerGame = {
         }
         
     },
-    updateRequirements: async (req,res) => {
-        try {
-            // Retrieve the Id from 'req.params'
-            const { id } = req.params;
+    createOrUpdateRequirementes: async ( req,res) => {
+        try{
+            const {gameId, platform, sizeGame, ramGame, processorGame, graphGame} = req.body;
 
-            // Retrieve the game data from 'req.body'
-            const updatedGameRequirements = req.body;
+            let existingRequirements = await gameRequeriments.findOne({ gameId });
 
-            // Find and update the game in the database
-            const updatedGameRequirementsData = await gameRequirements.findByIdAndUpdate(id, updatedGameRequirements,  {
-                new: true,
-            });
+            if (existingRequirements){
+                existingRequirements.platform = platform;
+                existingRequirements.sizeGame = sizeGame;
+                existingRequirements.ramGame = ramGame;
+                existingRequirements.processorGame = processorGame;
+                existingRequirements.graphGame = graphGame;
 
-            // If the game is not found, show an error message
-            if (!updatedGameRequirementsData) {
-                return res.status(404).json({ message: 'Game no found' });
+                existingRequirements = await existingRequirements.save()
+                return res.status(200).json({ message: "Game requirements updated", game: existingRequirements });
+            }else {
+                const gameRequirements = new gameRequeriments ({
+                    gameId: gameId, 
+                    platform, sizeGame, ramGame, processorGame, graphGame
+                });
+
+                const savedRequirements = await gameRequirements.save()
+                return res.status(200).json({message:"Game savedRequirements ",game: savedRequirements  });
             }
-            // Send the updated game as a success response
-            res.status(200).json(updatedGameRequirementsData);
-        }catch (error) {
-            // If something goes wrong, show an error
-            console.error("Error updating game requirements:", error);
-            return res.status(500).json({ msg: error });
+         
+        }catch(error){
+            console.error('Error create the requirements:', error);
+            return res.status(500).json({ msg: 'Internal server error', error: error.message });
         }
+        
     },
     // Function for retrieving all games requirements
     getGameRequirements: async (req, res) => {
