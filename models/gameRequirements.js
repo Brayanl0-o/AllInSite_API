@@ -9,8 +9,7 @@ const gameRequirementsSchema = new Schema({
     },
     platform: {
         type: String,
-        required: true,
-        minLength: 5,
+        required: false,
         maxLength: 60
     },
     sizeGame:{
