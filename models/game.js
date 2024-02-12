@@ -45,32 +45,13 @@ const gameSchema = new Schema({
         type:String,
         required: false,
     },
-    platform: {
-        type: String,
-        required: true,
-        minLength: 5,
-        maxLength: 60
-    },
-    // sizeGame:{
-    //     type: Number,
-    //     maxLength: 5,
-    //     required: false,
-    // },
-    // ramGame:{
-    //     type: Number,
-    //     maxLength: 3,
-    //     required: false,
-    // },
-    // processorGame:{
+    // platform: {
     //     type: String,
-    //     maxLength:200,
-    //     required: false,
+    //     required: true,
+    //     minLength: 5,
+    //     maxLength: 60
     // },
-    // graphGame:{
-    //     type: String,
-    //     maxLength: 200,
-    //     required: false,
-    // },
+
 },{versionKey: false});
 
 module.exports = mongoose.model('Game', gameSchema)
