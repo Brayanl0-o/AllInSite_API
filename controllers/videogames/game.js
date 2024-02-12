@@ -8,7 +8,7 @@ const controllerGame = {
     create: async (req, res) => {
         try {
             // Extract data de 'req.body'
-            const { gameName, platform, releaseDate, developer, genre, averageRating, descriptionGame, gameTrailer } = req.body;
+            const { gameName, releaseDate, developer, genre, averageRating, descriptionGame, gameTrailer } = req.body;
 
             // Extract gameImg of 'req.file'
             const gameImg = req.file.filename;
@@ -24,7 +24,6 @@ const controllerGame = {
             const game = new Game({
                 gameName,
                 gameImg,
-                platform,
                 releaseDate,
                 developer,
                 genre,
