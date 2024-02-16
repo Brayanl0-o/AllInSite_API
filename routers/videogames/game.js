@@ -18,7 +18,6 @@ router.patch('/updatedGameImg/:id', authJwt.verifyToken, validateRoles,controlle
 
 // Router for getting all games and game data by Id
 router.get('/', controllerGame.getGame)
-router.get('/gameRequirements', controllerGame.getGameRequirements)
 router.get('/gameRequirementsById/:id', controllerGame.getGameRequirementsById)
 
 router.get('/:id', controllerGame.getGameById)
