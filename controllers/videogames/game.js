@@ -44,23 +44,23 @@ const controllerGame = {
             return res.status(500).json({ msg: 'Internal server error', error: error.message });
         }
     },  
-    createRequirementes: async ( req,res) => {
-        try{
-            const {gameId, platform, sizeGame, ramGame, processorGame, graphGame} = req.body;
+    // createRequirementes: async ( req,res) => {
+    //     try{
+    //         const {gameId, platform, sizeGame, ramGame, processorGame, graphGame} = req.body;
 
-            const gameRequirements = new gameRequeriments ({
-                gameId: gameId, 
-                platform, sizeGame, ramGame, processorGame, graphGame
-            })
+    //         const gameRequirements = new gameRequeriments ({
+    //             gameId: gameId, 
+    //             platform, sizeGame, ramGame, processorGame, graphGame
+    //         })
     
-            const savedRequirements = await gameRequirements.save()
-            return res.status(200).json({message:"Game savedRequirements ",game: savedRequirements  });
-        }catch(error){
-            console.error('Error create the requeriments:', error);
-            return res.status(500).json({ msg: 'Internal server error', error: error.message });
-        }
+    //         const savedRequirements = await gameRequirements.save()
+    //         return res.status(200).json({message:"Game savedRequirements ",game: savedRequirements  });
+    //     }catch(error){
+    //         console.error('Error create the requeriments:', error);
+    //         return res.status(500).json({ msg: 'Internal server error', error: error.message });
+    //     }
         
-    },
+    // },
     createOrUpdateRequirementes: async ( req,res) => {
         try{
             const {gameId, platform, sizeGame, ramGame, processorGame, graphGame} = req.body;
@@ -92,19 +92,19 @@ const controllerGame = {
         }
         
     },
-    // Function for retrieving all games requirements
-    getGameRequirements: async (req, res) => {
-        try {
-            // Retrieve all games from the database
-            const gameRequirements = await gameRequeriments.find({});
+    // // Function for retrieving all games requirements
+    // getGameRequirements: async (req, res) => {
+    //     try {
+    //         // Retrieve all games from the database
+    //         const gameRequirements = await gameRequeriments.find({});
 
-            // Return the games in reverse order
-            return res.json(gameRequirements.reverse());
-        } catch (error) {
-            // If something goes wrong, show an error
-            return res.status(500).json({ msg: error });
-        }
-    },
+    //         // Return the games in reverse order
+    //         return res.json(gameRequirements.reverse());
+    //     } catch (error) {
+    //         // If something goes wrong, show an error
+    //         return res.status(500).json({ msg: error });
+    //     }
+    // },
      // Function for retrieving all games requirements
      getGameRequirementsById: async (req, res) => {
         try {
