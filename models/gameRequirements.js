@@ -7,11 +7,11 @@ const gameRequirementsSchema = new Schema({
         ref: 'Game',
         requierd: true,
     },
-    platform: {
-        type: String,
-        required: false,
-        maxLength: 60
-    },
+    // platform: {
+    //     type: String,
+    //     required: false,
+    //     maxLength: 60
+    // },
     sizeGame:{
         type: Number,
         maxLength: 5,
