@@ -8,7 +8,7 @@ const controllerGame = {
     create: async (req, res) => {
         try {
             // Extract data de 'req.body'
-            const { gameName, releaseDate, developer, genre, averageRating, descriptionGame, gameTrailer } = req.body;
+            const { gameName, releaseDate, platform, developer, genre, averageRating, descriptionGame, gameTrailer } = req.body;
 
             // Extract gameImg of 'req.file'
             const gameImg = req.file.filename;
@@ -26,6 +26,7 @@ const controllerGame = {
                 gameImg,
                 releaseDate,
                 developer,
+                platform,
                 genre,
                 averageRating,
                 descriptionGame,
@@ -44,31 +45,13 @@ const controllerGame = {
             return res.status(500).json({ msg: 'Internal server error', error: error.message });
         }
     },  
-    // createRequirementes: async ( req,res) => {
-    //     try{
-    //         const {gameId, platform, sizeGame, ramGame, processorGame, graphGame} = req.body;
-
-    //         const gameRequirements = new gameRequeriments ({
-    //             gameId: gameId, 
-    //             platform, sizeGame, ramGame, processorGame, graphGame
-    //         })
-    
-    //         const savedRequirements = await gameRequirements.save()
-    //         return res.status(200).json({message:"Game savedRequirements ",game: savedRequirements  });
-    //     }catch(error){
-    //         console.error('Error create the requeriments:', error);
-    //         return res.status(500).json({ msg: 'Internal server error', error: error.message });
-    //     }
-        
-    // },
     createOrUpdateRequirementes: async ( req,res) => {
         try{
-            const {gameId, platform, sizeGame, ramGame, processorGame, graphGame} = req.body;
+            const {gameId, sizeGame, ramGame, processorGame, graphGame} = req.body;
 
             let existingRequirements = await gameRequeriments.findOne({ gameId });
 
             if (existingRequirements){
-                existingRequirements.platform = platform;
                 existingRequirements.sizeGame = sizeGame;
                 existingRequirements.ramGame = ramGame;
                 existingRequirements.processorGame = processorGame;
@@ -79,7 +62,7 @@ const controllerGame = {
             }else {
                 const gameRequirements = new gameRequeriments ({
                     gameId: gameId, 
-                    platform, sizeGame, ramGame, processorGame, graphGame
+                    sizeGame, ramGame, processorGame, graphGame
                 });
 
                 const savedRequirements = await gameRequirements.save()
@@ -92,19 +75,6 @@ const controllerGame = {
         }
         
     },
-    // // Function for retrieving all games requirements
-    // getGameRequirements: async (req, res) => {
-    //     try {
-    //         // Retrieve all games from the database
-    //         const gameRequirements = await gameRequeriments.find({});
-
-    //         // Return the games in reverse order
-    //         return res.json(gameRequirements.reverse());
-    //     } catch (error) {
-    //         // If something goes wrong, show an error
-    //         return res.status(500).json({ msg: error });
-    //     }
-    // },
      // Function for retrieving all games requirements
      getGameRequirementsById: async (req, res) => {
         try {
