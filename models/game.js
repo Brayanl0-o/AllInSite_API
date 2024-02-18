@@ -45,12 +45,12 @@ const gameSchema = new Schema({
         type:String,
         required: false,
     },
-    // platform: {
-    //     type: String,
-    //     required: true,
-    //     minLength: 5,
-    //     maxLength: 60
-    // },
+    platform: {
+        type: String,
+        required: true,
+        minLength: 5,
+        maxLength: 60
+    },
 
 },{versionKey: false});
 
