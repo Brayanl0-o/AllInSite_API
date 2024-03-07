@@ -1,7 +1,14 @@
+const firebase = require('firebase/compat/app');
+require('firebase/compat/auth');
+const firebaseConfig = require('./firebaseConfig');
+firebase.initializeApp(firebaseConfig);
+
+
 const express = require('express');
 const cors = require('cors');
 const app = express();
 const path = require('path');
+
 
 //Import routers
 const game = require('./routers/videogames/game');
