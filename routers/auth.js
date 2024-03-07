@@ -13,6 +13,8 @@ router.use((req, res, next) => {
     );
     next();
     });
+//  Router for user login with google
+router.post('/signInWithGoogle', controllerAuth.signInWithGoogle)
 
 // Router for user register
 router.post('/signup', controllerUploadUser.upload, controllerUploadUser.uploadFile, controllerAuth.signup)
