@@ -1,9 +1,13 @@
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
+// const firebase = require('firebase/compat/app')
+require('firebase/compat/auth')
 // const config = require('../config')
 const nodemailer = require('nodemailer')
 const bcrypt = require('bcrypt')
 require('dotenv').config();
+
+
 const admin_email = process.env.ADMIN_EMAIL;
 const admin_password = process.env.ADMIN_PASSWORD;
 const url_env = process.env.URL;
@@ -22,6 +26,30 @@ const transporter = nodemailer.createTransport({
   });
 
 const controllerAuth={
+    // Funtion to test from postman
+    signInWithGoogle: async (req, res) => {
+      try {
+        const { access_token } = req.body;
+
+        if (!access_token) {
+          return res.status(400).json({ error: 'Token de acceso no proporcionado' });
+        }
+
+        return res.status(200).json({ access_token });
+      } catch (error) {
+        return res.status(500).json({ error: 'Error al autenticar con Google', details: error.message });
+      }
+    },
+    // signInWithGoogle: async (req, res)=>{
+    //   try{
+    //     const provider = new firebase.auth.GoogleAuthProvider();
+    //     await auth.signInWithGoogle(provider);
+    //     res.status(200).json('user auth with google')
+
+    //   }catch(error){
+    //     return res.status(500).json({error:"Error al autenticar con Google:", details: error.message});
+    //   }
+    // },
     // Function for register a new user (rol user & admin)
     signup: async (req,res) =>{
         // const errors = validationResult(req);
