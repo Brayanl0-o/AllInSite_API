@@ -1,6 +1,6 @@
 const firebase = require('firebase/compat/app');
 require('firebase/compat/auth');
-const firebaseConfig = require('./firebaseConfig');
+const firebaseConfig = require('./firebase.config');
 firebase.initializeApp(firebaseConfig);
 
 
