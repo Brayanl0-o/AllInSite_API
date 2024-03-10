@@ -1,11 +1,14 @@
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
-// const firebase = require('firebase/compat/app')
-require('firebase/compat/auth')
-// const config = require('../config')
 const nodemailer = require('nodemailer')
 const bcrypt = require('bcrypt')
 require('dotenv').config();
+
+const firebase = require('firebase/compat/app')
+require('firebase/compat/auth')
+const firebaseConfig = require('../firebase.config');
+firebase.initializeApp(firebaseConfig);
+
 
 
 const admin_email = process.env.ADMIN_EMAIL;
@@ -13,8 +16,6 @@ const admin_password = process.env.ADMIN_PASSWORD;
 const url_env = process.env.URL;
 const secret = process.env.SECRET;
 // const { validationResult } = require('express-validator')
-
-
 
 // email config
 const transporter = nodemailer.createTransport({
@@ -26,8 +27,27 @@ const transporter = nodemailer.createTransport({
   });
 
 const controllerAuth={
+    // Funtion to signIn with google
+    signInWithGoogle: async (req, res)=>{
+      try{
+        const idToken = req.body.access_token;
+        console.log('token receive from frontend:', idToken)
+
+        const credential = firebase.auth.GoogleAuthProvider.credential(idToken, null, null);
+
+        console.log('credential procces:', credential)
+
+        const userCredential = await firebase.auth().signInWithCredential(credential);
+        console.log('userCredential receive from signInWithGoogle:', userCredential)
+
+        res.status(200).json({ user: userCredential.user })
+
+      }catch(error){
+        return res.status(500).json({error:"Error al autenticar con Google:", details: error.message});
+      }
+    },
     // Funtion to test from postman
-    signInWithGoogle: async (req, res) => {
+    signInWithGooglePostman: async (req, res) => {
       try {
         const { access_token } = req.body;
 
@@ -40,16 +60,6 @@ const controllerAuth={
         return res.status(500).json({ error: 'Error al autenticar con Google', details: error.message });
       }
     },
-    // signInWithGoogle: async (req, res)=>{
-    //   try{
-    //     const provider = new firebase.auth.GoogleAuthProvider();
-    //     await auth.signInWithGoogle(provider);
-    //     res.status(200).json('user auth with google')
-
-    //   }catch(error){
-    //     return res.status(500).json({error:"Error al autenticar con Google:", details: error.message});
-    //   }
-    // },
     // Function for register a new user (rol user & admin)
     signup: async (req,res) =>{
         // const errors = validationResult(req);

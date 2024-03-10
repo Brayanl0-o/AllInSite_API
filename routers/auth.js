@@ -1,9 +1,11 @@
 const express = require('express')
-const controllerAuth = require('../controllers/auth')
 const router = express.Router()
 const authJwt = require('../middlewares/authJwt')
 const controllerUploadUser = require('../controllers/users/uploadUser');
 const validateRoles = require('../middlewares/verifyRole')
+const authMiddleware = require('../middlewares/authMiddleware');
+
+const controllerAuth = require('../controllers/auth')
 
 // Use response header to define data in headers
 router.use((req, res, next) => {
@@ -14,7 +16,7 @@ router.use((req, res, next) => {
     next();
     });
 //  Router for user login with google
-router.post('/signInWithGoogle', controllerAuth.signInWithGoogle)
+router.post('/signInWithGoogle', authMiddleware,controllerAuth.signInWithGoogle)
 
 // Router for user register
 router.post('/signup', controllerUploadUser.upload, controllerUploadUser.uploadFile, controllerAuth.signup)
