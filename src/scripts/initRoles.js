@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const Role = require('../models/roles'); 
-const dbConnection = require('../database');
+const Role = require('../../models/roles'); 
+const dbConnection = require('../../database');
 
 
 const initialRoles = [
