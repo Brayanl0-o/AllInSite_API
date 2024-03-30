@@ -11,9 +11,9 @@ const path = require('path');
 
 
 //Import routers
-const game = require('./routers/videogames/game');
-const user = require('./routers/users/user');
-const auth = require('./routers/auth');
+const game = require('./src/routers/videogames/game');
+const user = require('./src/routers/users/user');
+const auth = require('./src/routers/auth');
 
 // Configure midldlewares
 app.use(cors({
