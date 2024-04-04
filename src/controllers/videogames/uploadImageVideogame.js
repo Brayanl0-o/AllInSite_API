@@ -6,7 +6,7 @@ const helperImg =(filePath,fileName, width = 400, height = 400) => {
         .resize(height)
         .toFormat('webp', {quality: 70})
         .withMetadata(false)
-        .toFile(`./uploads/videogames/list/${fileName}.webp`)
+        .toFile(`./uploads/videogames/small/${fileName}.webp`)
 }
 const storage = multer.diskStorage({
 
