@@ -35,7 +35,7 @@ app.get('/uploads/:category/:filename.:ext', (req, res) => {
   
     // Check in if the extention is not '.wepb' and redirect to the version '.webp'
     if (ext !== 'webp') {
-      res.redirect(`/uploads/${category}/${filename}.webp`);
+      res.redirect(`/uploads/${category}/small${filename}.webp`);
     } else {
       // If the extention is .webp simply serve the file.
       res.sendFile(path.join(__dirname, `./uploads/${category}/${filename}.${ext}`));
