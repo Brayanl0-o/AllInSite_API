@@ -5,7 +5,7 @@ const helperImage = (filePath, fileName, width = 400 , height = 400) => {
     return sharp (filePath)
         .resize(width, height)
         .toFormat('webp', {quality: 80}) 
-        .toFile(`./uploads/users/${fileName}.webp`)  
+        .toFile(`./uploads/users/${size}/${fileName}.webp`)  
 }
 const storage = multer.diskStorage({
 
