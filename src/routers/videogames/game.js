@@ -1,7 +1,7 @@
 const express = require('express')
 const controllerGame = require('../../controllers/videogames/game')
 const router = express.Router()
-const controllerUploadGame = require('../../controllers/videogames/uploadGame');
+const uploadImageVideogame = require('../../controllers/videogames/uploadImageVideogame')
 const validateRoles = require('../../middlewares/verifyRole')
 const authJwt = require('../../middlewares/authJwt');
 const urlFix = require('../../middlewares/trailerGame');
@@ -10,12 +10,12 @@ const urlFix = require('../../middlewares/trailerGame');
 router.get('/filter', controllerGame.filterGames);
 
 //  Router for game creation (currently is not in use)
-router.post('/create',authJwt.verifyToken, validateRoles, controllerUploadGame.upload, controllerUploadGame.uploadFile, urlFix, controllerGame.create)
+router.post('/create',authJwt.verifyToken, validateRoles, uploadImageVideogame.upload, uploadImageVideogame.uploadFile, urlFix, controllerGame.create)
 router.post('/createRequirements',controllerGame.createOrUpdateRequirementes)
 
 // Router for updating game data, one for updating 
 router.patch('/update/:id', authJwt.verifyToken, validateRoles, urlFix, controllerGame.updateGame)
-router.patch('/updatedGameImg/:id', authJwt.verifyToken, validateRoles,controllerUploadGame.upload, controllerUploadGame.uploadFile,controllerGame.updateGame )
+router.patch('/updatedGameImg/:id', authJwt.verifyToken, validateRoles, uploadImageVideogame.upload, uploadImageVideogame.uploadFile,controllerGame.updateGame )
 // router.patch('/updatedGameImg/:id', authJwt.verifyToken, validateRoles,controllerUploadGame.upload, controllerUploadGame.uploadFile,controllerGame.updateGame )
 
 // Router for getting all games and game data by Id
