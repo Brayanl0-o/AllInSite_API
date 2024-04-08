@@ -1,13 +1,22 @@
 const multer = require('multer')
 const sharp = require('sharp')
 
-const helperImg =(filePath,fileName, width = 400, height = 400) => {
+const helperImgMedium =(filePath,fileName, width = 400, height = 400) => {
     return sharp(filePath)
         .resize(height, width)
-        .toFormat('webp', {quality: 70})
+        .toFormat('webp', {quality: 50})
         .withMetadata(false)
-        .toFile(`./uploads/videogames/small/${fileName}.webp`)
+        .toFile(`./uploads/videogames/medium/${fileName}.webp`)
 }
+
+const helperImgSmall =(filePath,fileName, width = 400, height = 400) => {
+  return sharp(filePath)
+      .resize(height, width)
+      .toFormat('webp', {quality: 70})
+      .withMetadata(false)
+      .toFile(`./uploads/videogames/small/${fileName}.webp`)
+}
+
 const storage = multer.diskStorage({
 
     filename:  (req, file, cb)=>{
@@ -24,7 +33,9 @@ const uploadFile = (req, res, next) => {
   try {
     const originalFileName = req.file.originalname;
     const fileNameWithoutExtension = originalFileName.split('.').slice(0, -1).join('.');
-    helperImg(req.file.path, fileNameWithoutExtension,  600, 700 );
+    helperImgMedium(req.file.path, fileNameWithoutExtension,  1300, 1000 );
+    helperImgSmall(req.file.path, fileNameWithoutExtension,  600, 500 );
+
       // console.log('Ejecutó helperImg');
       // res.send({ data: 'Imagen cargada' });
       next();
