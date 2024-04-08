@@ -7,6 +7,7 @@ const controllerGame = {
     // Function for creating new game
     create: async (req, res) => {
         try {
+            console.log('creating game')
             // Extract data de 'req.body'
             const { gameName, releaseDate, platform, developer, genre, averageRating, descriptionGame, gameTrailer } = req.body;
 
@@ -144,9 +145,14 @@ const controllerGame = {
 
             if (updateGameImg && currentGame && currentGame.gameImg) {
                 // Retrieve the correct url with 'path.resolve' and '__dirname' for an absolute url
-                const imagePath = path.resolve(__dirname, '../../uploads/videogames', `${fileNameWithoutExtension}.webp`);
+
+                const imagePath = path.resolve(__dirname, '../../../uploads/videogames/medium', `${fileNameWithoutExtension}.webp`);
+                const imagePathTwo = path.resolve(__dirname, '../../../uploads/videogames/small', `${fileNameWithoutExtension}.webp`);
+
                 // Retrieve the old image using 'fs.promises.unlink'
                 await fs.promises.unlink(imagePath);
+                await fs.promises.unlink(imagePathTwo);
+
             }
 
             // Validate the game image
