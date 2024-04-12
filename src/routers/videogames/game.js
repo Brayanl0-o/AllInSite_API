@@ -16,7 +16,6 @@ router.post('/createRequirements',controllerGame.createOrUpdateRequirementes)
 // Router for updating game data, one for updating 
 router.patch('/update/:id', authJwt.verifyToken, validateRoles, urlFix, controllerGame.updateGame)
 router.patch('/updatedGameImg/:id', authJwt.verifyToken, validateRoles, uploadImageVideogame.upload, uploadImageVideogame.uploadFile,controllerGame.updateGame )
-// router.patch('/updatedGameImg/:id', authJwt.verifyToken, validateRoles,controllerUploadGame.upload, controllerUploadGame.uploadFile,controllerGame.updateGame )
 
 // Router for getting all games and game data by Id
 router.get('/', controllerGame.getGame)
