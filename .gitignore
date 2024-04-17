@@ -1,6 +1,5 @@
 # Node
 /node_modules
-
 /uploads/trys/
 /uploads/OldImages/
 
@@ -11,4 +10,7 @@
 /routers/videogames/uploadGame.js
 /routers/users/uploadUser.js
 /config.js
+
+config/serviceAccountKey.json
+
 .env

@@ -11,7 +11,7 @@ const helperImgMedium =(filePath,fileName, width = 400, height = 400) => {
 
 const helperImgSmall =(filePath,fileName, width = 400, height = 400) => {
   return sharp(filePath)
-      .resize(height, width)
+      .resize(height, widt<h)
       .toFormat('webp', {quality: 70})
       .withMetadata(false)
       .toFile(`./uploads/videogames/small/${fileName}.webp`)
@@ -32,8 +32,8 @@ const uploadFile = (req, res, next) => {
   try {
     const originalFileName = req.file.originalname;
     const fileNameWithoutExtension = originalFileName.split('.').slice(0, -1).join('.');
-    helperImgMedium(req.file.path, fileNameWithoutExtension,  1300, 1000 );
-    helperImgSmall(req.file.path, fileNameWithoutExtension,  600, 500 );
+    helperImgMedium(req.file.path, fileNameWithoutExtension,  1200, 900 );
+    helperImgSmall(req.file.path, fileNameWithoutExtension,  400, 600  );
 
     next();
   } catch (error) {
