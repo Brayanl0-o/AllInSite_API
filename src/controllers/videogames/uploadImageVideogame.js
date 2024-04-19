@@ -11,7 +11,7 @@ const helperImgMedium =(filePath,fileName, width = 400, height = 400) => {
 
 const helperImgSmall =(filePath,fileName, width = 400, height = 400) => {
   return sharp(filePath)
-      .resize(height, widt<h)
+      .resize(height, width)
       .toFormat('webp', {quality: 70})
       .withMetadata(false)
       .toFile(`./uploads/videogames/small/${fileName}.webp`)

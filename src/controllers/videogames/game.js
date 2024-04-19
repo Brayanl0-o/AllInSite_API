@@ -190,11 +190,14 @@ const controllerGame = {
 
             // Retrieve a filename for the game image without extension
             const fileNameWithoutExtension = game.gameImg.replace(/\..+$/,'');
-
             // Retrieve the correct url with 'path.resolve' and '__dirname' for an absolute url
-            const imagePath = path.resolve(__dirname, '../../uploads/videogames', `${fileNameWithoutExtension}.webp`);
+            const imagePathMedium = path.resolve(__dirname, '../../../uploads/videogames/medium', `${fileNameWithoutExtension}.webp`);
+            const imagePathSmall = path.resolve(__dirname, '../../../uploads/videogames/small', `${fileNameWithoutExtension}.webp`);
+
             // Retrieve the old image using 'fs.promises.unlink'
-            await fs.promises.unlink(imagePath);
+            await fs.promises.unlink(imagePathMedium);
+            await fs.promises.unlink(imagePathSmall);
+
 
             // Find and delete the game in the database
             await Game.findByIdAndDelete(id);
