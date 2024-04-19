@@ -22,8 +22,11 @@ app.use(cors({
 }));
 
 // Serve images
-app.use('/uploads/users', express.static('uploads/users'));
-app.use('/uploads/videogames', express.static('uploads/videogames'));
+app.use('/uploads/users/medium', express.static('uploads/users/medium'));
+app.use('/uploads/users/small', express.static('uploads/users/small'));
+
+app.use('/uploads/videogames/medium', express.static('uploads/videogames/medium'));
+app.use('/uploads/videogames/small', express.static('uploads/videogames/small'));
 
 app.use(express.json());
 
