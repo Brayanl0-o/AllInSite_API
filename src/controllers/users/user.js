@@ -90,9 +90,12 @@ const controllerUser ={
 
             if(updateUserImg && currentUser && currentUser.userImg){
                 // Retrieve the correct url with 'path.resolve' and '__dirname' for an absolute url
-                const imagePath = path.resolve(__dirname,'../../uploads/users/',`${fileNameWithoutExtension}.webp` );
+                const imagePathMedium = path.resolve(__dirname,'../../../uploads/users/medium/',`${fileNameWithoutExtension}.webp` );
+                const imagePathSmall = path.resolve(__dirname,'../../../uploads/users/small/',`${fileNameWithoutExtension}.webp` );
+                
                 // Retrieve the old image using 'fs.promises.unlink'
-                await fs.promises.unlink(imagePath);
+                await fs.promises.unlink(imagePathMedium);
+                await fs.promises.unlink(imagePathSmall);
             }
 
             // Validate the user image
