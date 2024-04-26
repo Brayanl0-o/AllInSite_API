@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const authJwt = require('../middlewares/authJwt')
-const controllerUploadUser = require('../controllers/users/uploadUser');
+const controllerUploadUser = require('../controllers/users/uploadImageUser');
 const validateRoles = require('../middlewares/verifyRole')
 const authMiddleware = require('../middlewares/authMiddleware');
 

@@ -14,6 +14,8 @@ const path = require('path');
 const game = require('./src/routers/videogames/game');
 const user = require('./src/routers/users/user');
 const auth = require('./src/routers/auth');
+const songs = require('./src/routers/music/song');
+
 
 // Configure midldlewares
 app.use(cors({
@@ -27,6 +29,9 @@ app.use('/uploads/users/small', express.static('uploads/users/small'));
 
 app.use('/uploads/videogames/medium', express.static('uploads/videogames/medium'));
 app.use('/uploads/videogames/small', express.static('uploads/videogames/small'));
+
+app.use('/uploads/songs/medium', express.static('uploads/songs/medium'));
+app.use('/uploads/songs/small', express.static('uploads/songs/small'));
 
 app.use(express.json());
 
@@ -49,6 +54,7 @@ app.get('/uploads/:category/:size/:filename.:ext', (req, res) => {
 // Global router for accessing especific routers
 app.use('/users', user);
 app.use('/games', game);
+app.use('/songs', songs);
 app.use('/auth', auth);
 
 // Exports the module (app)
