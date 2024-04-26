@@ -27,7 +27,7 @@ const gameSchema = new Schema({
         type: String,
         required: true,
         minLength: 4,
-        maxLength: 35
+        maxLength: 55,
     },
     averageRating: {
         type: Number,
@@ -38,7 +38,7 @@ const gameSchema = new Schema({
     },
     descriptionGame:{
         type: String,
-        maxLength: 450,
+        maxLength: 1050,
         required: true,
     },
     gameTrailer:{
