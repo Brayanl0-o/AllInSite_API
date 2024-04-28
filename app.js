@@ -33,6 +33,9 @@ app.use('/uploads/videogames/small', express.static('uploads/videogames/small'))
 app.use('/uploads/songs/medium', express.static('uploads/songs/medium'));
 app.use('/uploads/songs/small', express.static('uploads/songs/small'));
 
+app.use('/uploads/forSite', express.static('uploads/forSite'));
+
+
 app.use(express.json());
 
 // Handle router upload images to change ext
