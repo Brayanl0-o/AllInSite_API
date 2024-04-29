@@ -194,10 +194,49 @@ const controllerAuth={
           const mailOptions = {
           from: admin_email,
           to: email,
-          subject: "Enviando correo electrónico para restablecer la contraseña",
-          text: `Este Enlace es válido por 1 horas ${url_env}/change-password/${token}`,
-          };
+          subject: "AllIn - Reestablecimiento de Contraseña",
+          html: `
+            <html>
+            <head>
+              <style>
+              body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+              }
+              .container {
+                  max-width: 600px;
+                  margin: 0 auto;
+                  padding: 20px;
+                  background-color: #fff;
+                  border-radius: 5px;
+                  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+              }
+              img {
+                  width:100px;
+                  height:200px;
+                  height: auto;
+                  display: flex;
+                  justify-content:center;
+                  margin: 0 auto;
+              }
+              </style>
+            </head>
+            <body>
+              <div class="container">
+                  <img src="https://allin-api-67ck.onrender.com/uploads/site/allIn_logo.webp" alt="Logo AllIn">
 
+                  <p>¡Hola!</p>
+                  <p>Recibiste este correo electrónico porque solicitaste restablecer tu contraseña.</p>
+                  <p>Por favor, haz clic en el siguiente enlace para restablecer tu contraseña:</p>
+                  <p><a href="${url_env}/change-password/${token}">Restablecer contraseña</a></p>
+                  <p>Este enlace es válido por 1 hora.</p>
+                  <p>Si no solicitaste este cambio, puedes ignorar este correo electrónico.</p>
+                  <p>Gracias.</p>
+              </div>
+            </body>
+          </html>
+          `,
+          };
           // Send the email with the reset password link
           transporter.sendMail(mailOptions, (error, info) => {
           if (error) {
