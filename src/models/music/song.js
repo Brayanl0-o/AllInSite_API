@@ -44,6 +44,18 @@ const songSchema = new Schema({
         maxLength: 2050,
         required: false,
     },
+    linkToYouTube:{
+        type: String,
+        required: false,
+    },
+    linkToSpotify:{
+        type: String,
+        required: false,
+    },
+    linkToDeezer:{
+        type: String,
+        required: false,
+    }
 
 },{versionKey: false});
 
