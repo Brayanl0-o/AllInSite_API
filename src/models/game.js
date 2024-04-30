@@ -51,6 +51,14 @@ const gameSchema = new Schema({
         minLength: 2,
         maxLength: 60
     },
+    linkToBuy:{
+        type: String,
+        required: false,
+    },
+    linkToFree:{
+        type: String,
+        required: false,
+    }
 
 },{versionKey: false});
 
