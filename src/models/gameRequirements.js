@@ -7,22 +7,29 @@ const gameRequirementsSchema = new Schema({
         ref: 'Game',
         requierd: true,
     },
-    // platform: {
-    //     type: String,
-    //     required: false,
-    //     maxLength: 60
-    // },
     sizeGame:{
-        type: Number,
-        maxLength: 5,
-        required: false,
-        default: '0'
+        value: { 
+            type: Number, 
+            maxLength: 4,
+            default: '0'
+        },
+        
+        unit: { 
+            type: String, 
+            enum: ['KB','MB', 'GB', 'TB'], 
+        }
     },
     ramGame:{
-        type: Number,
-        maxLength: 3,
-        required: false,
-        default: '0'
+        value: { 
+            type: Number, 
+            maxLength: 3,
+            default: '0'
+        },
+        
+        unit: { 
+            type: String, 
+            enum: ['MB', 'GB'], 
+        }
     },
     processorGame:{
         type: String,
