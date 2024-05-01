@@ -18,7 +18,7 @@ const validateRoles = (req, res, next) => {
       }
     }
   
-    next();
+    return next();
   };
   
   module.exports = validateRoles;

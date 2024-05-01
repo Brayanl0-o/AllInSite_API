@@ -8,10 +8,9 @@ const urlFix = async(req, res, next) => {
             const videoId = urlTrailer.substring(startIndex + 8, endIndex !== -1 ? endIndex : undefined);
             const newUrl =  "https://www.youtube.com/embed/" + videoId;
             req.body.gameTrailer = newUrl;
-            // console.log('from inside',newUrl)
             return next();
         }else{
-            return res.json("Error to tranform url Trailer :c")
+            return next();
         }
     }else{
         return res.json("Error dont arrive urlTrailer :c")
