@@ -58,6 +58,44 @@ const gameSchema = new Schema({
     linkToFree:{
         type: String,
         required: false,
+    },
+    requirements:{
+        sizeGame:{
+            value: { 
+                type: Number, 
+                maxLength: 4,
+                default: '0'
+            },
+            
+            unit: { 
+                type: String, 
+                enum: ['KB','MB', 'GB', 'TB'], 
+            }
+        },
+        ramGame:{
+            value: { 
+                type: Number, 
+                maxLength: 3,
+                default: '0'
+            },
+            
+            unit: { 
+                type: String, 
+                enum: ['MB', 'GB'], 
+            }
+        },
+        processorGame:{
+            type: String,
+            maxLength:200,
+            required: false,
+            default: 'No añadido'
+        },
+        graphGame:{
+            type: String,
+            maxLength: 200,
+            required: false,
+            default: 'No añadido'
+        },
     }
 
 },{versionKey: false});
