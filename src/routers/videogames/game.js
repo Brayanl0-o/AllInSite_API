@@ -11,7 +11,7 @@ router.get('/filter', controllerGame.filterGames);
 
 //  Router for game creation (currently is not in use)
 router.post('/create',authJwt.verifyToken, validateRoles, uploadImageVideogame.upload, uploadImageVideogame.uploadFile, urlFix, controllerGame.create)
-router.post('/createRequirements',controllerGame.createOrUpdateRequirementes)
+router.post('/updateRequirements',controllerGame.createOrUpdateRequirementes)
 
 // Router for updating game data, one for updating 
 router.patch('/update/:id', authJwt.verifyToken, validateRoles, urlFix, controllerGame.updateGame)
