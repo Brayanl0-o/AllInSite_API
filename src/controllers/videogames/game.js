@@ -49,32 +49,27 @@ const controllerGame = {
     createOrUpdateRequirementes: async ( req,res) => {
         try{
             const {gameId, sizeGame, ramGame, processorGame, graphGame} = req.body;
+            const _id = req.body.gameId;
+            let game = await Game.findOne({ _id}).exec();
 
-            let existingRequirements = await gameRequeriments.findOne({ gameId });
-
-            if (existingRequirements){
-                existingRequirements.sizeGame = sizeGame;
-                existingRequirements.ramGame = ramGame;
-                existingRequirements.processorGame = processorGame;
-                existingRequirements.graphGame = graphGame;
-
-                existingRequirements = await existingRequirements.save()
-                return res.status(200).json({ message: "Game requirements updated", game: existingRequirements });
-            }else {
-                const gameRequirements = new gameRequeriments ({
-                    gameId: gameId, 
-                    sizeGame, ramGame, processorGame, graphGame
-                });
-
-                const savedRequirements = await gameRequirements.save()
-                return res.status(200).json({message:"Game savedRequirements ",game: savedRequirements  });
+            if (!game) {
+                return res.status(404).json({ message: "Game not found" });
             }
-         
+    
+            game.requirements = {
+                sizeGame,
+                ramGame,
+                processorGame,
+                graphGame
+            };
+    
+            game = await game.save();
+    
+            return res.status(200).json({ message: "Game requirements updated", game });
         }catch(error){
             console.error('Error create the requirements:', error);
             return res.status(500).json({ msg: 'Internal server error', error: error.message });
         }
-        
     },
      // Function for retrieving all games requirements
      getGameRequirementsById: async (req, res) => {
