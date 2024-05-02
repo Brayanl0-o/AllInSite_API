@@ -16,13 +16,13 @@ const helperImgSmall =(filePath,fileName, width = 400, height = 400) => {
       .withMetadata(false)
       .toFile(`./uploads/videogames/small/${fileName}.webp`)
 }
-const helperImg =(filePath,fileName, width = 400, height = 400) => {
-  return sharp(filePath)
-      .resize(height, width)
-      .toFormat('webp', {quality: 90})
-      .withMetadata(false)
-      .toFile(`./uploads/forSite/${fileName}.webp`)
-}
+// const helperImg =(filePath,fileName, width = 400, height = 400) => {
+//   return sharp(filePath)
+//       .resize(height, width)
+//       .toFormat('webp', {quality: 90})
+//       .withMetadata(false)
+//       .toFile(`./uploads/forSite/${fileName}.webp`)
+// }
 const storage = multer.diskStorage({
 
     filename:  (req, file, cb)=>{
@@ -40,7 +40,7 @@ const uploadFile = (req, res, next) => {
     const fileNameWithoutExtension = originalFileName.split('.').slice(0, -1).join('.');
     helperImgMedium(req.file.path, fileNameWithoutExtension,  1200, 900 );
     helperImgSmall(req.file.path, fileNameWithoutExtension,  600, 400  );
-    helperImg(req.file.path, fileNameWithoutExtension);
+    // helperImg(req.file.path, fileNameWithoutExtension);
 
 
     next();
