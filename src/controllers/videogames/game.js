@@ -7,9 +7,8 @@ const controllerGame = {
     // Function for creating new game
     create: async (req, res) => {
         try {
-            console.log('creating game')
             // Extract data de 'req.body'
-            const { gameName, releaseDate, platform, developer, genre, averageRating, descriptionGame, gameTrailer } = req.body;
+            const { gameName, releaseDate, platform, developer, genre, averageRating, descriptionGame, gameTrailer, linkToBuy, linkToFree } = req.body;
 
             // Extract gameImg of 'req.file'
             const gameImg = req.file.filename;
@@ -31,7 +30,9 @@ const controllerGame = {
                 genre,
                 averageRating,
                 descriptionGame,
-                gameTrailer
+                gameTrailer,
+                linkToBuy, 
+                linkToFree,
             });
 
             // If everything is well, save the game

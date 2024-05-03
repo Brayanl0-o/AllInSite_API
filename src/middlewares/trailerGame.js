@@ -1,6 +1,7 @@
 
 const urlFix = async(req, res, next) => {
     const urlTrailer = req.body.gameTrailer;
+
     if(urlTrailer){
         const startIndex = urlTrailer.indexOf("watch?v=");
         if(startIndex !== -1){
@@ -8,12 +9,13 @@ const urlFix = async(req, res, next) => {
             const videoId = urlTrailer.substring(startIndex + 8, endIndex !== -1 ? endIndex : undefined);
             const newUrl =  "https://www.youtube.com/embed/" + videoId;
             req.body.gameTrailer = newUrl;
-            return next();
+            next();
         }else{
-            return next();
+            next();
         }
     }else{
-        return res.json("Error dont arrive urlTrailer :c")
+        res.status("Don't arrive urlTrailer :c");
+        next();
     }
 }
 module.exports = urlFix;
