@@ -6,7 +6,7 @@ const controllerSong = {
         try{
             console.log('llegada',req.body)
 
-            const { songName, singer, songImg, releaseDate, genre, averageRating, duration, lyrics } = req.body;
+            const { songName, singer, songImg, releaseDate, genre, averageRating, duration, lyrics, linkToYoutube, linkToDeezer, linkToSpotify } = req.body;
             const existingSong = await Song.findOne({ songName });
             if (existingSong) {
                 return res.status(400).json({ error: "The song is already!" });
@@ -19,7 +19,10 @@ const controllerSong = {
                 genre, 
                 averageRating, 
                 duration, 
-                lyrics
+                lyrics,
+                linkToYoutube, 
+                linkToDeezer,
+                linkToSpotify
             });
             const savedSong = await song.save();
 
@@ -58,13 +61,13 @@ const controllerSong = {
     // Function for updating a Song
     updateSong:async(req, res)=>{
         try{
+
             // Retrieve the Id from 'req.params'
             const {id } = req.params;
 
             // Retrieve the Song data from 'req.body'
             const updatedSongData = req.body;
 
-            console.log(updatedSongData)
              // Find and update the Song in the database
              const updatedSong = await Song.findByIdAndUpdate(id, updatedSongData, {
                 new: true,

@@ -44,7 +44,7 @@ const songSchema = new Schema({
         maxLength: 2050,
         required: false,
     },
-    linkToYouTube:{
+    linkToYoutube:{
         type: String,
         required: false,
     },
