@@ -1,9 +1,10 @@
 const express = require('express')
-const controllerSong = require('../../controllers/music/song')
 const router = express.Router()
-const validateRoles = require('../../middlewares/verifyRole')
 const authJwt = require('../../middlewares/authJwt')
+const validateRoles = require('../../middlewares/verifyRole')
+const controllerSong = require('../../controllers/music/song')
 const controllerUploadImage = require('../../controllers/music/uploadImageMusic')
+const controllerUploadTrack = require('../../controllers/music/uploadTrack')
 //  Router for user creation (currently is not in use)
 router.post('/create', authJwt.verifyToken, validateRoles, controllerSong.create)
 
@@ -17,5 +18,11 @@ router.patch('/updateImg/:id', authJwt.verifyToken, validateRoles, controllerUpl
 
 //  Router for deleting a user (currently is not in use)
 router.delete('/delete/:id', authJwt.verifyToken, validateRoles, controllerSong.deleteSong)
+
+
+router.get('/tracks/:trackID', controllerUploadTrack.getTrack);
+router.post('/createTrack', controllerUploadTrack.uploadTrack);
+
+
 
 module.exports = router;

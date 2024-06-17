@@ -15,6 +15,10 @@ const songSchema = new Schema({
         minLength:4,   
         maxLength: 80,
     },
+    trackID: {
+        type: String,
+        required: false,
+    },
     songImg: {
         type: String,
         required: true,
@@ -41,7 +45,7 @@ const songSchema = new Schema({
     },
     lyrics:{
         type: String,
-        maxLength: 2050,
+        maxLength: 5050,
         required: false,
     },
     linkToYoutube:{
