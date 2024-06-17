@@ -2,7 +2,7 @@ const firebase = require('firebase/compat/app');
 require('firebase/compat/auth');
 const firebaseConfig = require('./firebase.config');
 firebase.initializeApp(firebaseConfig);
-
+const dbConnection = require('./database');
 
 const express = require('express');
 const cors = require('cors');
@@ -22,6 +22,15 @@ app.use(cors({
     origin: "*",
     methods: "GET,HEAD,POST,PATCH,PUT,DELETE"
 }));
+
+// Defining the route to indicate successful connection
+app.get('/', (req, res) => {
+  if (dbConnection.readyState === 1) {
+    res.send('Connected to API ALLIN');
+} else {
+    res.status(500).send('Error connecting to database');
+}
+})
 
 // Serve images
 app.use('/uploads/users/medium', express.static('uploads/users/medium'));
