@@ -16,9 +16,5 @@ mongoose.connect(process.env.MONGO_DB_URI + "/gameSite", {
     .catch((err) =>
         console.error(err));
 
-// Defining the route to indicate successful connection
-app.get('/', (req, res) => {
-    res.send('Connected to API ALLIN')
-})
 
-module.exports = mongoose.connect;
+module.exports = mongoose.connection;
