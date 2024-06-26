@@ -3,9 +3,9 @@ const { getConnection } = require('../../../db')
 const multer = require('multer')
 const { Readable } = require('stream')
 const Song = require('../../models/music/song');
+const controllerSong = require('../../controllers/music/song')
 
-
-const getTrack = (req, res) => {
+const getTrack = async (req, res) => {
     // console.log(req.params.trackID,req.params.songID);
     let trackID;
     try{
@@ -13,9 +13,20 @@ const getTrack = (req, res) => {
     }catch(Error){  
         return res.status(400).json({ message: "Invalid track in URL parameter.", Error});
     }
-
-    res.type('audio/mp3');
-    res.attachment('track.mp3');
+    const song = await Song.findOne({ trackID })
+    // const song = controllerSong.getSongById();
+    if (!song) {
+        return res.status(404).json({ message: 'Track not found' });
+    }
+    const cleanSongName = song.songName.replace(/[^a-z0-9]/gi, '_').trim();
+    const cleanSingerName = song.singer.replace(/[^a-z0-9]/gi, '_').trim();
+    const fileName = `${cleanSongName} ${cleanSingerName}.mp3`;
+    res.set({
+        'Content-Type': 'audio/mp3',
+        'Content-Disposition': `attachment; filename="${fileName}"`
+    });
+    // res.type('audio/mp3');
+    // res.attachment('track.mp3');
     // res.set("content-type", "audio/mp3");
     // res.set("content-type", "bytes");
 
@@ -27,7 +38,7 @@ const getTrack = (req, res) => {
     let downloadStream = bucket.openDownloadStream(trackID);
 
     downloadStream.on('data', chunk => {
-        // console.log('dowload track');
+        console.log('dowload track');
 
         res.write(chunk);
     })
@@ -37,7 +48,7 @@ const getTrack = (req, res) => {
     })
     
     downloadStream.on('end', () => {
-        // console.log('end dowloaded track');
+        console.log('end dowloaded track');
 
         res.end();
     })
