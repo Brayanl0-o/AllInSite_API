@@ -16,6 +16,13 @@ router.get('/:id',controllerSong.getSongById)
 router.patch('/update/:id', authJwt.verifyToken, validateRoles,controllerSong.updateSong)
 router.patch('/updateImg/:id', authJwt.verifyToken, validateRoles, controllerUploadImage.upload, controllerUploadImage.uploadFile, controllerSong.updateSong)
 
+//  Routers for playlists info
+router.get('/playlists/get', authJwt.verifyToken, controllerSong.getPlaylists);
+router.post('/playlists/createplaylist', authJwt.verifyToken, controllerSong.createPlaylist);
+router.patch('/playlists/:playlistId/addSong/:songId', authJwt.verifyToken, controllerSong.addSongToPlaylist);
+router.patch('/playlists/delete/:playlistId/songs/:songId', authJwt.verifyToken,controllerSong.delteSongFromPlaylist);
+router.delete('/playlists/delete/:id', authJwt.verifyToken,controllerSong.deletePlaylist);
+
 //  Router for deleting a user (currently is not in use)
 router.delete('/delete/:id', authJwt.verifyToken, validateRoles, controllerSong.deleteSong)
 
