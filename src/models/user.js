@@ -41,7 +41,7 @@ const userSchema = new Schema({
         type: String,
         required: true,
         minLength:4,
-        maxLength: 25
+        // maxLength: 25
     },
     phoneNumber:{
         type:String,
@@ -67,7 +67,11 @@ const userSchema = new Schema({
     roles:{
         type: [String]
         // default: "usuario"
-    }
+    },
+    playlists: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Playlist'
+    }],
     
 
 },{versionKey: false,timestamps: true})
