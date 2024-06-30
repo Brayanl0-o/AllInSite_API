@@ -35,8 +35,8 @@ const songSchema = new Schema({
     },
     averageRating: {
         type: Number,
-        minLength: 1,
-        maxLength: 2,
+        min: 1,
+        max: 10,
         required: false,
     },
     releaseDate: {
@@ -59,7 +59,12 @@ const songSchema = new Schema({
     linkToDeezer:{
         type: String,
         required: false,
-    }
+    },
+    category:{
+        type: String,
+        required: false,
+        default: '',
+    },
 
 },{versionKey: false});
 
