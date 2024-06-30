@@ -9,10 +9,6 @@ const gameSchema = new Schema({
         minLength:4,   
         maxLength: 60
     },
-    gameImg: {
-        type: String,
-        required: true
-    },
     releaseDate: {
         type: Date,
         required: true,
