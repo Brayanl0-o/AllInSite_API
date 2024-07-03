@@ -1,6 +1,6 @@
 const Song = require('../../models/music/song');
 const User = require('../../models/user');
-const Playlist = require('../../models/music/playList.js');
+const Playlist = require('../../models/music/playlist.js');
 
 const controllerSong = {
     create: async(req,res) =>{
