@@ -29,7 +29,8 @@ const gameSchema = new Schema({
         type: Number,
         minLength: 1,
         maxLength: 2,
-        required: true,
+        default: 'N/A',
+        required: false,
 
     },
     descriptionGame:{
