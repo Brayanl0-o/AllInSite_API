@@ -25,7 +25,7 @@ const songSchema = new Schema({
     },
     duration: {
         type: String,
-        required: true,
+        required: false,
     },
     genre: {
         type: String,
